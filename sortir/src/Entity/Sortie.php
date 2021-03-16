@@ -55,9 +55,9 @@ class Sortie
     private $etat;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Participant::class, mappedBy="organiser")
+     * @ORM\ManyToOne(targetEntity=Lieu::class, inversedBy="sortie")
      */
-    private $participants;
+    private $lieu;
 
     /**
      * @ORM\ManyToOne(targetEntity=Site::class, inversedBy="sorties")
@@ -66,14 +66,21 @@ class Sortie
     private $site;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Lieu::class, inversedBy="sorties")
+     * @ORM\ManyToMany(targetEntity=Participant::class, inversedBy="sorties")
+     */
+    private $participant;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Participant::class, inversedBy="sorties")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $lieu;
+    private $organisateur;
+
 
     public function __construct()
     {
         $this->participants = new ArrayCollection();
+        $this->participant = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -165,29 +172,14 @@ class Sortie
         return $this;
     }
 
-    /**
-     * @return Collection|Participant[]
-     */
-    public function getParticipants(): Collection
+    public function getLieu(): ?Lieu
     {
-        return $this->participants;
+        return $this->lieu;
     }
 
-    public function addParticipant(Participant $participant): self
+    public function setLieu(?Lieu $lieu): self
     {
-        if (!$this->participants->contains($participant)) {
-            $this->participants[] = $participant;
-            $participant->addOrganiser($this);
-        }
-
-        return $this;
-    }
-
-    public function removeParticipant(Participant $participant): self
-    {
-        if ($this->participants->removeElement($participant)) {
-            $participant->removeOrganiser($this);
-        }
+        $this->lieu = $lieu;
 
         return $this;
     }
@@ -204,15 +196,40 @@ class Sortie
         return $this;
     }
 
-    public function getLieu(): ?Lieu
+    /**
+     * @return Collection|Participant[]
+     */
+    public function getParticipant(): Collection
     {
-        return $this->lieu;
+        return $this->participant;
     }
 
-    public function setLieu(?Lieu $lieu): self
+    public function addParticipant(Participant $participant): self
     {
-        $this->lieu = $lieu;
+        if (!$this->participant->contains($participant)) {
+            $this->participant[] = $participant;
+        }
 
         return $this;
     }
+
+    public function removeParticipant(Participant $participant): self
+    {
+        $this->participant->removeElement($participant);
+
+        return $this;
+    }
+
+    public function getOrganisateur(): ?Participant
+    {
+        return $this->organisateur;
+    }
+
+    public function setOrganisateur(?Participant $organisateur): self
+    {
+        $this->organisateur = $organisateur;
+
+        return $this;
+    }
+
 }

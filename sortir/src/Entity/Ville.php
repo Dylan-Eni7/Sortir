@@ -34,6 +34,7 @@ class Ville
      */
     private $lieus;
 
+
     public function __construct()
     {
         $this->lieus = new ArrayCollection();
@@ -97,4 +98,6 @@ class Ville
 
         return $this;
     }
+
+
 }

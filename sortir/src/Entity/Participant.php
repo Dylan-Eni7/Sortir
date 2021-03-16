@@ -28,7 +28,7 @@ class Participant implements UserInterface
     /**
      * @ORM\Column(type="json")
      */
-    private $roles = [];
+    private $roles = ['ROLE_USER'];
 
     /**
      * @var string The hashed password
@@ -62,25 +62,22 @@ class Participant implements UserInterface
     private $administrateur;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Site::class)
+     * @ORM\ManyToMany(targetEntity=Sortie::class, mappedBy="participant")
+     */
+    private $sorties;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Site::class, inversedBy="participants")
      * @ORM\JoinColumn(nullable=false)
      */
     private $site;
 
-    /**
-     * @ORM\ManyToMany(targetEntity=Sortie::class, inversedBy="participants")
-     */
-    private $organiser;
-
-    /**
-     * @ORM\ManyToMany(targetEntity=Sortie::class, inversedBy="participants")
-     */
-    private $inscrire;
 
     public function __construct()
     {
         $this->organiser = new ArrayCollection();
         $this->inscrire = new ArrayCollection();
+        $this->sorties = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -111,8 +108,8 @@ class Participant implements UserInterface
     public function getRoles(): array
     {
         $roles = $this->roles;
-        // guarantee every user at least has ROLE_USER
-        $roles[] = 'ROLE_USER';
+
+        return $roles;
 
         return array_unique($roles);
     }
@@ -219,6 +216,33 @@ class Participant implements UserInterface
         return $this;
     }
 
+    /**
+     * @return Collection|Sortie[]
+     */
+    public function getSorties(): Collection
+    {
+        return $this->sorties;
+    }
+
+    public function addSorty(Sortie $sorty): self
+    {
+        if (!$this->sorties->contains($sorty)) {
+            $this->sorties[] = $sorty;
+            $sorty->addParticipant($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSorty(Sortie $sorty): self
+    {
+        if ($this->sorties->removeElement($sorty)) {
+            $sorty->removeParticipant($this);
+        }
+
+        return $this;
+    }
+
     public function getSite(): ?Site
     {
         return $this->site;
@@ -231,51 +255,4 @@ class Participant implements UserInterface
         return $this;
     }
 
-    /**
-     * @return Collection|Sortie[]
-     */
-    public function getOrganiser(): Collection
-    {
-        return $this->organiser;
-    }
-
-    public function addOrganiser(Sortie $organiser): self
-    {
-        if (!$this->organiser->contains($organiser)) {
-            $this->organiser[] = $organiser;
-        }
-
-        return $this;
-    }
-
-    public function removeOrganiser(Sortie $organiser): self
-    {
-        $this->organiser->removeElement($organiser);
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Sortie[]
-     */
-    public function getInscrire(): Collection
-    {
-        return $this->inscrire;
-    }
-
-    public function addInscrire(Sortie $inscrire): self
-    {
-        if (!$this->inscrire->contains($inscrire)) {
-            $this->inscrire[] = $inscrire;
-        }
-
-        return $this;
-    }
-
-    public function removeInscrire(Sortie $inscrire): self
-    {
-        $this->inscrire->removeElement($inscrire);
-
-        return $this;
-    }
 }
