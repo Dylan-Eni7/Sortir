@@ -1,3 +1,18 @@
-{% for sortie in sorties %}
-    {{ sortie.nom }}
-{% endfor %}
+<table border="1px">
+    <thead>
+    <tr>
+        <th colspan="5">Voici nos sorties</th>
+    </tr>
+    </thead>
+    <tbody>
+        {% for sortie in sorties %}
+            <tr>
+                <td>{{ sortie.nom }}</td>
+                <td>{{ sortie.dateHeureDebut|date('Y/m/d h:m') }}</td>
+                <td>{{ sortie.dateLimiteInscription|date('Y/m/d h:m') }}</td>
+                <td>{{ sortie.nbInscriptionsMax }}</td>
+                <td>{{ sortie.etat }}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>

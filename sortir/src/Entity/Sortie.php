@@ -67,19 +67,19 @@ class Sortie
 
     /**
      * @ORM\ManyToMany(targetEntity=Participant::class, inversedBy="sorties")
+     * @ORM\JoinColumn(nullable=true)
      */
     private $participant;
 
     /**
      * @ORM\ManyToOne(targetEntity=Participant::class, inversedBy="sorties")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      */
     private $organisateur;
 
 
     public function __construct()
     {
-        $this->participants = new ArrayCollection();
         $this->participant = new ArrayCollection();
     }
 
