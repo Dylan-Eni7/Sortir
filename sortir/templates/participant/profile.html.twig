@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mon profil{% endblock %}
+
+{% block body %}
+    <h1>
+        Mon Profil
+    </h1>
+    <ul>
+        <li>
+            Prénom :
+            {{ app.participant.prenom }}
+        </li>
+        <li>
+            Nom :
+            {{ app.participant.nom }}
+        </li>
+        <li>
+            Pseudo :
+            {{ app.participant.username }}
+        </li>
+        <li>
+            email :
+            {{ app.participant.email }}
+        </li>
+        <li>
+            Téléphone :
+            {{ app.participant.telephone }}
+        </li>
+        <li>
+            Password :
+            {{ app.participant.password }}
+        </li>
+        <li>
+            Site :
+            {{ app.participant.site }}
+        </li>
+    </ul>
+{% endblock %}
+
+
+
+
+
+
+
+
