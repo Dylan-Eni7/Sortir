@@ -6,36 +6,48 @@
     <h1>
         Mon Profil
     </h1>
-    <ul>
-        <li>
-            Prénom :
-            {{ app.participant.prenom }}
-        </li>
-        <li>
-            Nom :
-            {{ app.participant.nom }}
-        </li>
-        <li>
-            Pseudo :
-            {{ app.participant.username }}
-        </li>
-        <li>
-            email :
-            {{ app.participant.email }}
-        </li>
-        <li>
-            Téléphone :
-            {{ app.participant.telephone }}
-        </li>
-        <li>
-            Password :
-            {{ app.participant.password }}
-        </li>
-        <li>
-            Site :
-            {{ app.participant.site }}
-        </li>
-    </ul>
+    {{ form_start(profilFormView) }}
+    {{ form_errors(profilFormView) }}
+
+    {{ form_label(profilFormView.nom) }}
+   {{ form_widget(profilFormView.nom, {'value' : app.user.nom }) }}
+    {{ form_errors(profilFormView.nom) }}
+
+    {{ form_label(profilFormView.prenom) }}
+    {{ form_widget(profilFormView.prenom, {'value' : app.user.prenom })  }}
+    {{ form_errors(profilFormView.prenom) }}
+
+    {{ form_label(profilFormView.username) }}
+    {{ form_widget(profilFormView.username, {'value' : app.user.username }) }}
+    {{ form_errors(profilFormView.username) }}
+
+    {{ form_label(profilFormView.mail) }}
+    {{ form_widget(profilFormView.mail, {'value' : app.user.mail }) }}
+    {{ form_errors(profilFormView.mail) }}
+
+    {{ form_label(profilFormView.telephone) }}
+    {{ form_widget(profilFormView.telephone, {'value' : app.user.telephone }) }}
+    {{ form_errors(profilFormView.telephone) }}
+
+    {{ form_label(profilFormView.plainPassword) }}
+    {{ form_widget(profilFormView.plainPassword) }}
+    {{ form_errors(profilFormView.plainPassword) }}
+
+    <label for="passwordConfimer">Confirmer le password</label>
+    <input type="text" id="passwordConfimer" name="passwordConfimer">
+    {{ var == passwordConfirmer }}
+
+    {% if profilFormView.plainPassword != var %}
+    <h1>ok</h1>
+    {% else %}
+    <h1>nok</h1>
+    {% endif %}
+    {{ form_label(profilFormView.site) }}
+    {{ form_widget(profilFormView.site, {'value' : app.user.site }) }}
+    {{ form_errors(profilFormView.site) }}
+
+    {{ form_end(profilFormView) }}
+
 {% endblock %}
 
 
