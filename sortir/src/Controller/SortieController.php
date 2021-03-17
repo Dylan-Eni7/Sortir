@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Sortie;
 use App\Form\SortieType;
+use App\Repository\SortieRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -16,6 +17,21 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class SortieController extends AbstractController
 {
+    /**
+     * @Route("/", name="list")
+     */
+    public function list(EntityManagerInterface $entityManager): Response
+    {
+        /** @var SortieRepository $sortieRepository */
+        $sortieRepository = $entityManager->getRepository(Sortie::class);
+        $sorties = $sortieRepository->findAll();
+        return $this->render('outing/index.html.twig',
+            [
+                'sorties' => $sorties,
+            ]
+        );
+    }
+
     /**
      * @Route("/new", name="new")
      */
@@ -34,13 +50,13 @@ class SortieController extends AbstractController
 
             $this->addFlash('success', 'Votre sortie a bien été créer !');
             return $this->redirectToRoute(
-                'idea_detail',
+                'sortie_detail',
                 ['id' => $sortie->getId()]
             );
         }
 
-        return $this->render('outing/index.html.twig', [
-
+        return $this->render('outing/new.html.twig', [
+            'sortieFormView' => $sortieForm->createView(),
         ]);
     }
 
@@ -72,7 +88,7 @@ class SortieController extends AbstractController
         ]);
     }
     /**
-     * @Route ("publish/($id)", name="publish")
+     * @Route ("/publish/($id)", name="publish")
      */
     public function publish($id): Response
     {

@@ -12,7 +12,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class AdminController extends AbstractController
 {
     /**
-     * @Route ("/create", name="create"
+     * @Route ("/create", name="create")
      */
     public function create(): Response
     {
