@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+
 /**
  * Class UserController
  * @package App\Controller
@@ -22,12 +23,13 @@ class UserController extends AbstractController
 
         ]);
     }
+
     /**
-     * @Route ("/profile/($id)", name="profile")
+     * @Route ("/profile/{id}", name="profile")
      */
     public function profile($id): Response
     {
-        return $this->render('user/profile.html.twig',[
+        return $this->render('participant/profile.html.twig', [
 
         ]);
     }

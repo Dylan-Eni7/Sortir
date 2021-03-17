@@ -6,10 +6,14 @@ use App\Repository\ParticipantRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Security\Core\Encoder\EncoderAwareInterface;
+
 
 /**
  * @ORM\Entity(repositoryClass=ParticipantRepository::class)
+ * @UniqueEntity(fields={"username"}, message="There is already an account with this username")
  */
 class Participant implements UserInterface
 {
@@ -92,7 +96,7 @@ class Participant implements UserInterface
      */
     public function getUsername(): string
     {
-        return (string) $this->username;
+        return (string)$this->username;
     }
 
     public function setUsername(string $username): self
@@ -126,7 +130,7 @@ class Participant implements UserInterface
      */
     public function getPassword(): string
     {
-        return (string) $this->password;
+        return (string)$this->password;
     }
 
     public function setPassword(string $password): self
@@ -153,7 +157,7 @@ class Participant implements UserInterface
     public function eraseCredentials()
     {
         // If you store any temporary, sensitive data on the user, clear it here
-        // $this->plainPassword = null;
+        //$this->plainPassword = null;
     }
 
     public function getNom(): ?string
