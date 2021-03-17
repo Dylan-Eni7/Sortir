@@ -1,10 +1,20 @@
 <table border="1px">
     <thead>
     <tr>
-        <th colspan="5">Voici nos sorties</th>
+        <th colspan="7">Voici nos sorties</th>
     </tr>
     </thead>
     <tbody>
+        <tr align="center">
+            <td>Nom de la sortie</td>
+            <td>Date de la sortie</td>
+            <td>Clôture</td>
+            <td>inscrits/places</td>
+            <td>Etat</td>
+            <td>inscrit</td>
+            <td>Organisateur</td>
+            <td>Actions</td>
+        </tr>
         {% for sortie in sorties %}
             <tr>
                 <td>{{ sortie.nom }}</td>
@@ -12,6 +22,31 @@
                 <td>{{ sortie.dateLimiteInscription|date('Y/m/d h:m') }}</td>
                 <td>{{ sortie.nbInscriptionsMax }}</td>
                 <td>{{ sortie.etat }}</td>
+                <td align="center">
+                    {% if sortie.getParticipant %}
+                        {% for participant in sortie.getParticipant %}
+                            {% if participant.id == app.user.id %}
+                                X
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
+                </td>
+                <td>{{ sortie.organisateur.username }}</td>
+                <td>
+                    {% if sortie.organisateur.id == app.user.id %}
+                        <a href="index.html.twig">Modifier</a>
+                    {% else %}
+                        <a href="index.html.twig">Afficher</a>
+                    {% endif %}
+                    -
+                    {% for participant in sortie.getParticipant %}
+                        {% if participant.id == app.user.id %}
+                            <a href="index.html.twig">Se désister</a>
+                        {% else %}
+                            <a href="#.html.twig">S'inscrire</a>
+                        {% endif %}
+                    {% endfor %}
+                </td>
             </tr>
         {% endfor %}
     </tbody>
