@@ -3,6 +3,11 @@
 {% block title %}Register{% endblock %}
 
 {% block body %}
+    {{ include('nav/navProfil.html.twig') }}
+    <div class="container">
+        <div class="row">
+            <div class="col">
+
     {% for flashError in app.flashes('verify_email_error') %}
         <div class="alert alert-danger" role="alert">{{ flashError }}</div>
     {% endfor %}
@@ -25,4 +30,7 @@
 
         <button type="submit" class="btn">Register</button>
     {{ form_end(registrationForm) }}
+            </div>
+        </div>
+    </div>
 {% endblock %}

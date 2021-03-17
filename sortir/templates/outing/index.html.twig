@@ -1,3 +1,4 @@
+
 <table border="1px">
     <thead>
     <tr>
@@ -5,7 +6,9 @@
     </tr>
     </thead>
     <tbody>
+
         {% for sortie in sorties %}
+
             <tr>
                 <td>{{ sortie.nom }}</td>
                 <td>{{ sortie.dateHeureDebut|date('Y/m/d h:m') }}</td>
@@ -16,3 +19,4 @@
         {% endfor %}
     </tbody>
 </table>
+
