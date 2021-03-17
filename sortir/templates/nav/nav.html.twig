@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="fr" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link reel="stylesheet" href="{{ asset('css/CSS.css') }}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
+
+    <style>
+        .navbar-nav {
+            margin-left: auto;
+        }
+
+
+    </style>
+</head>
+
+<body>
+
+<!-- Creating a navigation bar using the
+     .navbar class of bootstrap -->
+<nav class="navbar navbar-expand-sm "  style="position: relative; background-color: #00487f">
+
+    <a class="navbar-brand" style="color:white;" href="#">
+        <img src="/images/Eni.png" width="45" height="45" class="d-inline-block fixed-align-top" alt="">
+        Sortir
+    </a>
+    <ul class="navbar-nav" >
+        <li class="nav-item">
+            <a class="nav-link" style="color:white;" href="#">
+                Villes
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" style="color:white;" href="#">
+                Sites
+            </a> <li class="nav-item">
+            <a class="nav-link" style="color:white;" href="#">
+                Accueil
+            </a> <li class="nav-item">
+            <a class="nav-link" style="color:white;" href="{{ url('user_profile', {id: 'tata'}) }}">
+                Profil
+            </a>
+        </li>
+
+        {% if app.user %}
+            <a class="nav-link" style="color: white" href="{{ path('app_logout') }}">Déconnexion</a>
+        {% else %}
+            <a class="nav-link" style="color: white" href="{{ path('app_login') }}">Se connecter</a>
+        {% endif %}
+
+
+    </ul>
+
+
+</nav>
+</body>
+
+</html>
