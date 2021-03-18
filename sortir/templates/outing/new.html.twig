@@ -1,5 +1,5 @@
 {% block title %}Organiser une sortie{% endblock %}
-
+{{ include('nav/profile.html.twig') }}
 {% block body %}
 
     <h1>Que voulez-vous faire ?</h1>
@@ -37,10 +37,6 @@
     {{ form_label(sortieFormView.site) }}
     {{ form_widget(sortieFormView.site) }}
     {{ form_errors(sortieFormView.site) }}
-
-    {{ form_label(sortieFormView.organisateur) }}
-    {{ form_widget(sortieFormView.organisateur) }}
-    {{ form_errors(sortieFormView.organisateur) }}
 
     {{ form_end(sortieFormView) }}
 

@@ -3,6 +3,10 @@
 {% block title %}Log in!{% endblock %}
 
 {% block body %}
+    {{ include('nav/nav.html.twig') }}
+<div class="container">
+    <div class="row">
+        <div class="col">
 <form method="post">
     {% if error %}
         {{ dump(error) }}
@@ -22,8 +26,7 @@
     <input type="password" name="password" id="inputPassword" class="form-control" required>
 
     <input type="hidden" name="_csrf_token"
-           value="{{ csrf_token('authenticate') }}"
-    >
+           value="{{ csrf_token('authenticate') }}">
 
 
 {#        Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.#}
@@ -40,4 +43,7 @@
         Sign in
     </button>
 </form>
+        </div>
+    </div>
+</div>
 {% endblock %}
