@@ -31,16 +31,12 @@
         {{ form_widget(profilFormView.telephone, {'value' : app.user.telephone }) }}
         {{ form_errors(profilFormView.telephone) }}
 
-        {{ form_label(profilFormView.plainPassword) }}
-        {{ form_widget(profilFormView.plainPassword) }}
-        {{ form_errors(profilFormView.plainPassword) }}
-
-        {{ form_label(profilFormView.newPassword) }}
-        {{ form_widget(profilFormView.newPassword) }}
-        {{ form_errors(profilFormView.newPassword) }}
+        {{ form_label(profilFormView.password) }}
+        {{ form_widget(profilFormView.password) }}
+        {{ form_errors(profilFormView.password) }}
 
         {{ form_label(profilFormView.site) }}
-        {{ form_widget(profilFormView.site, {'value' : app.user.site }) }}
+        {{ form_widget(profilFormView.site, {'value' : app.user.site.nom }) }}
         {{ form_errors(profilFormView.site) }}
     </div>
     {{ form_end(profilFormView) }}
