@@ -45,6 +45,7 @@ class UserController extends AbstractController
             $user->setPassword($hashed);
             $entityManager->persist($user);
             $entityManager->flush();
+
             return $this->redirectToRoute("user_profile", ["id"=>$user->getId()]);
         }
         return $this->render("participant/profile.html.twig", [
