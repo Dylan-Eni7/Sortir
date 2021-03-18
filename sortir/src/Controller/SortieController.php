@@ -70,6 +70,18 @@ class SortieController extends AbstractController
     }
 
     /**
+     * @Route ("/delete/{id}", name="delete")
+     */
+    public function delete($id, EntityManagerInterface $entityManager): Response
+    {
+        $sortieRepository = $entityManager->getRepository(Sortie::class);
+        $sortie = $sortieRepository->find($id);
+        $entityManager->remove($sortie);
+        $entityManager->flush();
+        return $this->redirectToRoute("outing_list");
+    }
+
+    /**
      * @Route ("/cancel/{id}", name="cancel")
      */
     public function cancel($id): Response
@@ -78,6 +90,7 @@ class SortieController extends AbstractController
 
         ]);
     }
+
     /**
      * @Route ("/modify/{id}", name="modify")
      */

@@ -56,7 +56,7 @@
                             -
                             <a href="{{ path('outing_publish', {id: sortie.id}) }}">Publier</a>
                             -
-                            <a href="index.html.twig" class="warning">Supprimer</a>
+                            <a href="{{ path('outing_delete', {id: sortie.id}) }}" class="warning">Supprimer</a>
                         {% else %}
                             <a href="{{ path('outing_detail', {id: sortie.id}) }}">Afficher</a>
                             {% if sortie.etat == "Ouvert" %}
