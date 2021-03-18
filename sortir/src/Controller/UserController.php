@@ -9,9 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Core\User\UserInterface;
-
-
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 /**
  * Class UserController
@@ -33,29 +31,25 @@ class UserController extends AbstractController
     /**
      * @Route ("/profile/{id}", name="profile")
      */
-    public function profile($id, UserInterface $user,
+    public function profile($id,
                             EntityManagerInterface $entityManager,
-                            Request $request): Response
+                            Request $request,
+                            UserPasswordEncoderInterface $passwordEncoder): Response
     {
-        $profil = new Participant();
-        $profilForm = $this->createForm(ProfilType::class, $profil);
-        $profilForm->handleRequest($request);
+        $user = $entityManager->getRepository(Participant::class)->find($this->getUser()->getId());
+        $profilform = $this->createForm(ProfilType::class, $user);
+        $profilform->handleRequest($request);
+        if ($profilform->isSubmitted() && $profilform->isValid()) {
 
-        if ($profilForm->isSubmitted() && $profilForm->isValid()) {
-            $entityManager->persist($profil);
+            $hashed = $passwordEncoder->encodePassword($user, $user->getPassword());
+            $user->setPassword($hashed);
+            $entityManager->persist($user);
             $entityManager->flush();
-
-            $this->addFlash('success', 'Votre sortie a bien été créer !');
-            return $this->redirectToRoute(
-                'user_profile',
-                ['id' => $profil->getId()]
-            );
+            return $this->redirectToRoute("user_profile", ["id"=>$user->getId()]);
         }
-
-        {
-            return $this->render('participant/profile.html.twig', [
-                'profilFormView' => $profilForm->createView(),
-            ]);
-        }
+        return $this->render("participant/profile.html.twig", [
+            'profilFormView' => $profilform->createView(),
+            'user' => $user
+        ]);
     }
 }

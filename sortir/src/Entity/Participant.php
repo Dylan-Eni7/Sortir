@@ -8,7 +8,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
-use Symfony\Component\Security\Core\Encoder\EncoderAwareInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 
 /**
@@ -35,6 +35,7 @@ class Participant implements UserInterface
     private $roles = ['ROLE_USER'];
 
     /**
+     *
      * @var string The hashed password
      * @ORM\Column(type="string")
      */
@@ -130,7 +131,7 @@ class Participant implements UserInterface
      */
     public function getPassword(): string
     {
-        return (string)$this->password;
+        return $this->password;
     }
 
     public function setPassword(string $password): self
