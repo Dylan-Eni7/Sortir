@@ -55,6 +55,7 @@ class SortieController extends AbstractController
             if ($sortieForm->get('Publier')->isClicked()) {
                 $sortie->setEtat("Ouvert");
             }
+
             $entityManager->persist($sortie);
             $entityManager->flush();
 
