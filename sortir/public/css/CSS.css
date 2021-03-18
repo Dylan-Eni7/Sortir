@@ -1,11 +1,18 @@
-.navbar-brand
-{
-    position: absolute;
-    width: 100%;
-    left: 0;
-    text-align: center;
-    margin:0 auto;
-}
+
 .navbar-toggle {
     z-index:3;
+}
+
+.warning {
+    color: red;
+}
+
+#sortieTable {
+    width:800px;
+    table-layout:fixed;
+}
+
+
+td {
+    word-wrap:break-word;
 }

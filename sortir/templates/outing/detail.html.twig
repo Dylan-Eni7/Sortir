@@ -1,0 +1,58 @@
+<link href="{{ asset('css/CSS.css') }}" rel="stylesheet">
+
+<table border="1px" id="sortieTable">
+    <thead>
+    <tr>
+        <th colspan="4"><h1>Afficher une sortie</h1></th>
+    </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Nom de la sortie : </td><td>{{ sortie.nom }}</td>
+            <td>Ville organisatrice : </td><td>{{ site.nom }}</td>
+        </tr>
+        <tr>
+            <td>Date et heure de la sortie : </td><td>{{ sortie.dateHeureDebut|date('Y/m/d h:m') }}</td>
+            <td>Lieu : </td><td>{{ lieu.nom }}</td>
+        </tr>
+        <tr>
+            <td>Date limite d'inscription : </td><td>{{ sortie.dateLimiteInscription|date('Y/m/d h:m') }}</td>
+            <td>Ville : </td><td>{{ ville.nom }}</td>
+        </tr>
+        <tr>
+            <td>Nombre de places : </td><td>{{ sortie.nbInscriptionsMax }}</td>
+            <td>Rue : </td><td>{{ lieu.rue }}</td>
+        </tr>
+        <tr>
+            <td>Durée : </td><td>{{ sortie.duree }} minutes</td>
+            <td>Code postal : </td><td>{{ ville.CodePostal }}</td>
+        </tr>
+        {% if lieu.latitude != "" or lieu.longitude != "" %}
+        <tr>
+            <td>Latitude : </td><td>{{ lieu.latitude }}</td>
+            <td>Longitude : </td><td>{{ lieu.longitude }}</td>
+        </tr>
+        {% endif %}
+        <tr>
+            <td>Description et infos : </td><td colspan="3">{{ sortie.infosSortie }} </td>
+        </tr>
+    </tbody>
+</table>
+
+<table border="1px">
+    <thead>
+    <tr>
+        <th colspan="2">Liste des participants :</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>Pseudo</td><td>Nom</td>
+    </tr>
+        {% for participant in sortie.participant %}
+            <tr>
+                <td>{{ participant.username }} </td><td>{{ participant.prenom }} {{ participant.nom }}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>

@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Lieu;
 use App\Entity\Sortie;
 use App\Form\SortieType;
 use App\Repository\SortieRepository;
@@ -69,7 +70,7 @@ class SortieController extends AbstractController
     }
 
     /**
-     * @Route ("/cancel/($id)", name="cancel")
+     * @Route ("/cancel/{id}", name="cancel")
      */
     public function cancel($id): Response
     {
@@ -78,7 +79,7 @@ class SortieController extends AbstractController
         ]);
     }
     /**
-     * @Route ("/modify/($id)", name="modify")
+     * @Route ("/modify/{id}", name="modify")
      */
     public function modify($id): Response
     {
@@ -87,22 +88,32 @@ class SortieController extends AbstractController
         ]);
     }
     /**
-     * @Route ("/detail/($id)", name="detail")
+     * @Route ("/detail/{id}", name="detail")
      */
-    public function detail($id): Response
+    public function detail($id, EntityManagerInterface $entityManager): Response
     {
-        return $this->render('outing/detail.html.twig',[
+        $sortie = $entityManager->find(Sortie::class, $id);
+        $site = $sortie->getSite();
+        $lieu = $sortie->getLieu();
+        $ville = $lieu->getVille();
 
+        return $this->render('outing/detail.html.twig',[
+            'sortie' => $sortie,
+            'lieu' => $lieu,
+            'site' => $site,
+            'ville' => $ville
         ]);
     }
     /**
-     * @Route ("/publish/($id)", name="publish")
+     * @Route ("/publish/{id}", name="publish")
      */
-    public function publish($id): Response
+    public function publish($id, EntityManagerInterface $entityManager): Response
     {
-        return $this->render('outing/publish.html.twig',[
+        $sortie = $entityManager->find(Sortie::class, $id);
+        $sortie->setEtat("Ouvert");
+        $entityManager->flush();
 
-        ]);
+        return $this->redirectToRoute("outing_list");
     }
 
 }

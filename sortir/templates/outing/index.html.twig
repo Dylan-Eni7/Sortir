@@ -1,8 +1,10 @@
-
+{% block body %}
+{% include ('nav/nav.html.twig')%}
+<link href="{{ asset('css/CSS.css') }}" rel="stylesheet">
 <table border="1px">
     <thead>
     <tr>
-        <th colspan="7">Voici nos sorties</th>
+        <th colspan="8">Voici nos sorties</th>
     </tr>
     </thead>
     <tbody>
@@ -21,7 +23,7 @@
                 <td>{{ sortie.nom }}</td>
                 <td>{{ sortie.dateHeureDebut|date('Y/m/d h:m') }}</td>
                 <td>{{ sortie.dateLimiteInscription|date('Y/m/d h:m') }}</td>
-                <td>{{ sortie.nbInscriptionsMax }}</td>
+                <td align="center">{{ sortie.participant|length }} / {{ sortie.nbInscriptionsMax }}</td>
                 <td>{{ sortie.etat }}</td>
                 <td align="center">
                     {% if sortie.getParticipant %}
@@ -34,25 +36,71 @@
                 </td>
                 <td>{{ sortie.organisateur.username }}</td>
                 <td>
-                    {% if sortie.organisateur.id == app.user.id %}
-                        <a href="index.html.twig">Modifier</a>
+                    {% if sortie.participant is empty and sortie.etat == "Ouvert"%}
+                        <a href="{{ path('participant_register', {id: sortie.id}) }}">S'inscrire</a>
                     {% else %}
-                        <a href="index.html.twig">Afficher</a>
+                        {% for participant in sortie.participant %}
+                            {% if participant.id == app.user.id %}
+                                <a href="{{ path('participant_withdraw', {id: sortie.id}) }}">Se désister</a>
+                            {% else %}
+                                {% if sortie.etat == "Ouvert" %}
+                                    <a href="{{ path('participant_register', {id: sortie.id}) }}">S'inscrire</a>
+                                {% endif %}
+                            {% endif %}
+                        {% endfor %}
                     {% endif %}
-                    -
-                    {% for participant in sortie.participant %}
-                        {% if participant.id == app.user.id %}
-                            <a href="index.html.twig">Se désister</a>
+
+                    {% if sortie.organisateur.id == app.user.id %}
+                        {% if sortie.etat == "En création" %}
+                            <a href="index.html.twig">Modifier</a>
+                            -
+                            <a href="{{ path('outing_publish', {id: sortie.id}) }}">Publier</a>
                         {% else %}
-                            <a href="{{ path('outing_new', {id: app.user.id}) }}">S'inscrire</a>
+                            - <a href="{{ path('outing_detail', {id: sortie.id}) }}">Afficher</a>
+                            {% if sortie.etat == "Ouvert" %}
+                                - <a href="index.html.twig" class="warning">Annuler</a>
+                            {% endif %}
                         {% endif %}
-                    {% endfor %}
-                    {% if sortie.participant is empty %}
-                        <a href="#.html.twig">S'inscrire</a>
+                    {% else %}
+                        - <a href="{{ path('outing_detail', {id: sortie.id}) }}">Afficher</a>
                     {% endif %}
                 </td>
             </tr>
         {% endfor %}
     </tbody>
 </table>
-
+    <th>Voici nos sorties</th>
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th scope="col">Nom de la sortie</th>
+            <th scope="col">Date de la sortie</th>
+            <th scope="col">Clôture</th>
+            <th scope="col">Inscrits/places</th>
+            <th scope="col">Etat</th>
+            <th scope="col">Inscrit</th>
+            <th scope="col">Organisateur</th>
+            <th scope="col">Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <th scope="row">1</th>
+            <td>Mark</td>
+            <td>Otto</td>
+            <td>@mdo</td>
+        </tr>
+        <tr>
+            <th scope="row">2</th>
+            <td>Jacob</td>
+            <td>Thornton</td>
+            <td>@fat</td>
+        </tr>
+        <tr>
+            <th scope="row">3</th>
+            <td colspan="2">Larry the Bird</td>
+            <td>@twitter</td>
+        </tr>
+        </tbody>
+    </table>
+{% endblock %}
