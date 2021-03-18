@@ -18,57 +18,60 @@
         </thead>
         <tbody>
         {% for sortie in sorties %}
-        <tr>
-            <th scope="row" style="color: #00487f">{{ sortie.nom }}</th>
-            <td>{{ sortie.dateHeureDebut|date('Y/m/d - h:m') }}</td>
-            <td>{{ sortie.dateLimiteInscription|date('Y/m/d - h:m') }}</td>
-            <td align="center">{{ sortie.participant|length }} / {{ sortie.nbInscriptionsMax }}</td>
-            <td>{{ sortie.etat }}</td>
-            <td align="center">
-                {% if sortie.getParticipant %}
-                    {% for participant in sortie.getParticipant %}
-                        {% if participant.id == app.user.id %}
-                            X
-                        {% endif %}
-                    {% endfor %}
-                {% endif %}
-            </td>
-            <td>{{ sortie.organisateur.username }}</td>
-            <td>
-                {% if sortie.participant is empty and sortie.etat == "Ouvert"%}
-                    <a  href="{{ path('participant_register', {id: sortie.id}) }}">S'inscrire</a> -
-                {% else %}
-                    {% for participant in sortie.participant %}
-                        {% if participant.id == app.user.id %}
-                            <a href="{{ path('participant_withdraw', {id: sortie.id}) }}">Se désister</a> -
+            <tr>
+                <td>{{ sortie.nom }}</td>
+                <td>{{ sortie.dateHeureDebut|date('Y/m/d h:m') }}</td>
+                <td>{{ sortie.dateLimiteInscription|date('Y/m/d h:m') }}</td>
+                <td align="center">{{ sortie.participant|length }} / {{ sortie.nbInscriptionsMax }}</td>
+                <td>{{ sortie.etat }}</td>
+                <td align="center">
+                    {% if sortie.getParticipant %}
+                        {% for participant in sortie.getParticipant %}
+                            {% if participant.id == app.user.id %}
+                                X
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
+                </td>
+                <td>{{ sortie.organisateur.username }}</td>
+                <td>
+                    {% if sortie.participant is empty and sortie.etat == "Ouvert"%}
+                        <a href="{{ path('participant_register', {id: sortie.id}) }}">S'inscrire</a> -
+                    {% else %}
+                        {% for participant in sortie.participant %}
+                            {% if participant.id == app.user.id %}
+                                <a href="{{ path('participant_withdraw', {id: sortie.id}) }}">Se désister</a> -
+                            {% else %}
+                                {% if sortie.etat == "Ouvert" %}
+                                    <a href="{{ path('participant_register', {id: sortie.id}) }}">S'inscrire</a> -
+                                {% endif %}
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
+
+                    {% if sortie.organisateur.id == app.user.id %}
+                        {% if sortie.etat == "En création" %}
+                            <a href="index.html.twig">Modifier</a>
+                            -
+                            <a href="{{ path('outing_publish', {id: sortie.id}) }}">Publier</a>
+                            -
+                            <a href="{{ path('outing_delete', {id: sortie.id}) }}" class="warning">Supprimer</a>
                         {% else %}
+                            <a href="{{ path('outing_detail', {id: sortie.id}) }}">Afficher</a>
                             {% if sortie.etat == "Ouvert" %}
-                               <a href="{{ path('participant_register', {id: sortie.id}) }}">S'inscrire</a> -
+                                - <a href="index.html.twig" class="warning">Annuler</a>
                             {% endif %}
                         {% endif %}
-                    {% endfor %}
-                {% endif %}
-
-                {% if sortie.organisateur.id == app.user.id %}
-                    {% if sortie.etat == "En création" %}
-                        <a href="index.html.twig">Modifier</a>
-                        -
-                        <a href="{{ path('outing_publish', {id: sortie.id}) }}">Publier</a>
-                        -
-                        <a href="{{ path('outing_delete', {id: sortie.id}) }}" class="warning">Supprimer</a>
                     {% else %}
-                        <a href="{{ path('outing_detail', {id: sortie.id}) }}">Afficher</a>
-                        {% if sortie.etat == "Ouvert" %}
-                            - <a href="index.html.twig" class="warning">Annuler</a>
+                        {% if sortie.etat != "En création" %}
+                            <a href="{{ path('outing_detail', {id: sortie.id}) }}">Afficher</a>
                         {% endif %}
                     {% endif %}
-                {% else %}
-                    <a href="{{ path('outing_detail', {id: sortie.id}) }}">Afficher</a>
-                {% endif %}
-            </td>
-        </tr>
+                </td>
+            </tr>
         {% endfor %}
-        </tr>
         </tbody>
     </table>
 {% endblock %}
+
+
