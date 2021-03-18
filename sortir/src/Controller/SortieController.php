@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Lieu;
 use App\Entity\Sortie;
 use App\Form\SortieType;
 use App\Repository\SortieRepository;
@@ -89,10 +90,18 @@ class SortieController extends AbstractController
     /**
      * @Route ("/detail/{id}", name="detail")
      */
-    public function detail($id): Response
+    public function detail($id, EntityManagerInterface $entityManager): Response
     {
-        return $this->render('outing/detail.html.twig',[
+        $sortie = $entityManager->find(Sortie::class, $id);
+        $site = $sortie->getSite();
+        $lieu = $sortie->getLieu();
+        $ville = $lieu->getVille();
 
+        return $this->render('outing/detail.html.twig',[
+            'sortie' => $sortie,
+            'lieu' => $lieu,
+            'site' => $site,
+            'ville' => $ville
         ]);
     }
     /**

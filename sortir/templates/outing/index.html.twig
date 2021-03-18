@@ -54,13 +54,13 @@
                             -
                             <a href="{{ path('outing_publish', {id: sortie.id}) }}">Publier</a>
                         {% else %}
-                            - <a href="index.html.twig">Afficher</a>
+                            - <a href="{{ path('outing_detail', {id: sortie.id}) }}">Afficher</a>
                             {% if sortie.etat == "Ouvert" %}
                                 - <a href="index.html.twig" class="warning">Annuler</a>
                             {% endif %}
                         {% endif %}
                     {% else %}
-                        - <a href="index.html.twig">Afficher</a>
+                        - <a href="{{ path('outing_detail', {id: sortie.id}) }}">Afficher</a>
                     {% endif %}
                 </td>
             </tr>

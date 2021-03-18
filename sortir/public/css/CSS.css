@@ -13,3 +13,13 @@
 .warning {
     color: red;
 }
+
+#sortieTable {
+    width:800px;
+    table-layout:fixed;
+}
+
+
+td {
+    word-wrap:break-word;
+}
