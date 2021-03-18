@@ -36,14 +36,14 @@
             <td>{{ sortie.organisateur.username }}</td>
             <td>
                 {% if sortie.participant is empty and sortie.etat == "Ouvert"%}
-                    - <a  href="{{ path('participant_register', {id: sortie.id}) }}">S'inscrire</a>
+                    <a  href="{{ path('participant_register', {id: sortie.id}) }}">S'inscrire</a> -
                 {% else %}
                     {% for participant in sortie.participant %}
                         {% if participant.id == app.user.id %}
-                            - <a href="{{ path('participant_withdraw', {id: sortie.id}) }}">Se désister</a>
+                            <a href="{{ path('participant_withdraw', {id: sortie.id}) }}">Se désister</a> -
                         {% else %}
                             {% if sortie.etat == "Ouvert" %}
-                               - <a href="{{ path('participant_register', {id: sortie.id}) }}">S'inscrire</a>
+                               <a href="{{ path('participant_register', {id: sortie.id}) }}">S'inscrire</a> -
                             {% endif %}
                         {% endif %}
                     {% endfor %}
@@ -51,16 +51,19 @@
 
                 {% if sortie.organisateur.id == app.user.id %}
                     {% if sortie.etat == "En création" %}
-                        <li><a href="index.html.twig">Modifier</a></li>
+                        <a href="index.html.twig">Modifier</a>
+                        -
                         <a href="{{ path('outing_publish', {id: sortie.id}) }}">Publier</a>
+                        -
+                        <a href="{{ path('outing_delete', {id: sortie.id}) }}" class="warning">Supprimer</a>
                     {% else %}
-                        - <a href="{{ path('outing_detail', {id: sortie.id}) }}">Afficher</a>
+                        <a href="{{ path('outing_detail', {id: sortie.id}) }}">Afficher</a>
                         {% if sortie.etat == "Ouvert" %}
                             - <a href="index.html.twig" class="warning">Annuler</a>
                         {% endif %}
                     {% endif %}
                 {% else %}
-                    - <a href="{{ path('outing_detail', {id: sortie.id}) }}">Afficher</a>
+                    <a href="{{ path('outing_detail', {id: sortie.id}) }}">Afficher</a>
                 {% endif %}
             </td>
         </tr>
