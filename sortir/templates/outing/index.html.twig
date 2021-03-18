@@ -40,13 +40,16 @@
                         <a href="index.html.twig">Afficher</a>
                     {% endif %}
                     -
-                    {% for participant in sortie.getParticipant %}
+                    {% for participant in sortie.participant %}
                         {% if participant.id == app.user.id %}
                             <a href="index.html.twig">Se désister</a>
                         {% else %}
-                            <a href="#.html.twig">S'inscrire</a>
+                            <a href="{{ path('outing_new', {id: app.user.id}) }}">S'inscrire</a>
                         {% endif %}
                     {% endfor %}
+                    {% if sortie.participant is empty %}
+                        <a href="#.html.twig">S'inscrire</a>
+                    {% endif %}
                 </td>
             </tr>
         {% endfor %}

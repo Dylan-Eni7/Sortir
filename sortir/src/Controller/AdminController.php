@@ -21,7 +21,7 @@ class AdminController extends AbstractController
         ]);
     }
     /**
-     * @Route ("/unactive/($id)", name="unactive")
+     * @Route ("/unactive/{$id}", name="unactive")
      */
     public function unactive($id): Response
     {
@@ -30,7 +30,7 @@ class AdminController extends AbstractController
         ]);
     }
     /**
-     * @Route ("/delete/($id)", name="delete")
+     * @Route ("/delete/{$id}", name="delete")
      */
     public function delete($id): Response
     {

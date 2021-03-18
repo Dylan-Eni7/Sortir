@@ -12,18 +12,19 @@ use Symfony\Component\Routing\Annotation\Route;
 class ParticipantController extends AbstractController
 {
     /**
-     * @Route ("/register/($id.user)/($id.outing)", name="register")
+     * @Route ("/register/{$id.user}/{$id.outing}", name="register")
      */
-    public function register(): Response
+    public function register($idUser, $idOuting): Response
     {
-        return $this->render('participant/register.html.twig', [
+
+        return $this->render('outing/index.html.twig', [
 
         ]);
     }
     /**
-     * @Route ("/withdraw/($id.user)/($id.outing)", name="withdraw")
+     * @Route ("/withdraw/{$id.user}/{$id.outing}", name="withdraw")
      */
-    public function withdraw(): Response
+    public function withdraw($idUser, $idOuting): Response
     {
         return $this->render('participant/withdraw.html.twig',[
 
