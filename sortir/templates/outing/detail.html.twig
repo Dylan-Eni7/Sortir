@@ -38,3 +38,21 @@
         </tr>
     </tbody>
 </table>
+
+<table border="1px">
+    <thead>
+    <tr>
+        <th colspan="2">Liste des participants :</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>Pseudo</td><td>Nom</td>
+    </tr>
+        {% for participant in sortie.participant %}
+            <tr>
+                <td>{{ participant.username }} </td><td>{{ participant.prenom }} {{ participant.nom }}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>

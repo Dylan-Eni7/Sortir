@@ -41,7 +41,7 @@
                             {% if participant.id == app.user.id %}
                                 <a href="{{ path('participant_withdraw', {id: sortie.id}) }}">Se désister</a>
                             {% else %}
-                                {% if sortie.etat == ouvert %}
+                                {% if sortie.etat == "Ouvert" %}
                                     <a href="{{ path('participant_register', {id: sortie.id}) }}">S'inscrire</a>
                                 {% endif %}
                             {% endif %}
