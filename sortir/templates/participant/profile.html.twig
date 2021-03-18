@@ -8,6 +8,12 @@
         Mon Profil
     </h1>
     <div>
+{#        {% if app.user.photo is not null %}#}
+{#            <img class="img-profile-2 rounded-circle" src="{{ asset('files/' ~ app.user.photo) }}" alt="{{ app.user.username }}">#}
+{#        {% else %}#}
+{#            <i class="fas fa-user-circle fa-9x"></i>#}
+{#        {% endif %}#}
+{#        <img src="{{ app.user.avatar }}" />#}
         {{ form_start(profilFormView) }}
         {{ form_errors(profilFormView) }}
 
