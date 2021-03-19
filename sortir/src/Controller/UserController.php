@@ -19,22 +19,11 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 class UserController extends AbstractController
 {
     /**
-     * @Route("/modify/($id)", name="modify")
+     * @Route("/edit/{id}", name="edit")
      */
-    public function modify($id): Response
-    {
-        return $this->render('user/modify.html.twig', [
-
-        ]);
-    }
-
-    /**
-     * @Route ("/profile/{id}", name="profile")
-     */
-    public function profile($id,
-                            EntityManagerInterface $entityManager,
-                            Request $request,
-                            UserPasswordEncoderInterface $passwordEncoder): Response
+    public function edit($id, EntityManagerInterface $entityManager,
+                         Request $request,
+                         UserPasswordEncoderInterface $passwordEncoder): Response
     {
         $user = $entityManager->getRepository(Participant::class)->find($this->getUser()->getId());
         $profilform = $this->createForm(ProfilType::class, $user);
@@ -43,14 +32,34 @@ class UserController extends AbstractController
 
             $hashed = $passwordEncoder->encodePassword($user, $user->getPassword());
             $user->setPassword($hashed);
+            if ($user->setPassword() == null) {
+                $user->getPassword();
+            }
             $entityManager->persist($user);
             $entityManager->flush();
 
-            return $this->redirectToRoute("user_profile", ["id"=>$user->getId()]);
+            return $this->redirectToRoute("user_edit", ["id" => $user->getId()]);
+
         }
-        return $this->render("participant/profile.html.twig", [
+        return $this->render('participant/edit.html.twig', [
             'profilFormView' => $profilform->createView(),
             'user' => $user
+        ]);
+    }
+
+    /**
+     * @Route ("/profile/{id}", name="profile")
+     */
+    public function profile($id, EntityManagerInterface $entityManager): Response
+
+    {
+        $user = $entityManager->getRepository(Participant::class)->find($id);
+        if ($user == null) {
+            throw $this->createNotFoundException("L'utilisateur est absent dans la base de données. Essayez un autre ID !");
+        }
+        return $this->render("participant/profile.html.twig", [
+            'controller_name' => 'ParticipantController',
+            'user_profil' => $user
         ]);
     }
 }

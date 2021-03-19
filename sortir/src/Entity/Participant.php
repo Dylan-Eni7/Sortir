@@ -25,6 +25,8 @@ class Participant implements UserInterface
     private $id;
 
     /**
+     * @var string
+     *
      * @ORM\Column(type="string", length=180, unique=true)
      */
     private $username;
@@ -35,7 +37,6 @@ class Participant implements UserInterface
     private $roles = ['ROLE_USER'];
 
     /**
-     *
      * @var string The hashed password
      * @ORM\Column(type="string")
      */
@@ -57,6 +58,7 @@ class Participant implements UserInterface
     private $telephone;
 
     /**
+     * @var string
      * @ORM\Column(type="string", length=255)
      */
     private $mail;
@@ -102,10 +104,10 @@ class Participant implements UserInterface
      */
     public function getUsername(): string
     {
-        return (string)$this->username;
+        return (string) $this->username;
     }
 
-    public function setUsername(string $username): self
+    public function setUsername($username): self
     {
         $this->username = $username;
 
