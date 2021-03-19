@@ -51,7 +51,7 @@
 
                     {% if sortie.organisateur.id == app.user.id %}
                         {% if sortie.etat == "En création" %}
-                            <a href="index.html.twig">Modifier</a>
+                            <a href="{{ path('outing_modify', {id: sortie.id}) }}">Modifier</a>
                             -
                             <a href="{{ path('outing_publish', {id: sortie.id}) }}">Publier</a>
                             -
