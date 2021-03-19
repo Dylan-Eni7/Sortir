@@ -19,9 +19,35 @@
 </head>
 
 <body>
+{% block b %}
+    <nav class="navbar navbar-expand-sm "  style="position: relative; background-color: #00487f">
 
-<!-- Creating a navigation bar using the
-     .navbar class of bootstrap -->
+        <a class="navbar-brand" style="color:white;" href="#">
+            <img src="/images/Eni.png" width="45" height="45" class="d-inline-block fixed-align-top" alt="">
+            Sortir
+        </a>
+        <ul class="navbar-nav" >
+            {% if app.user %}
+            <li class="nav-item">
+                <a class="nav-link" style="color:white;" href="{{ path('app_login') }}">
+                    Accueil
+                </a>
+            </li>
+                </a> <li class="nav-item">
+                <a class="nav-link" style="color:white;" href="{{ path('user_profile', {id: 'id'}) }}">
+                    Profil
+                </a>
+            </li>
+                <a class="nav-link" style="color: white" href="{{ path('app_logout') }}">Déconnexion</a>
+                {% endif %}
+            </li>
+        </ul>
+    </nav>
+
+
+{% endblock b %}
+
+{% block a %}
 <nav class="navbar navbar-expand-sm "  style="position: relative; background-color: #00487f">
 
     <a class="navbar-brand" style="color:white;" href="#">
@@ -30,7 +56,6 @@
     </a>
     <ul class="navbar-nav" >
         {% if app.user %}
-
         <li class="nav-item">
             <a class="nav-link" style="color:white;" href="#">
                 Villes
@@ -59,5 +84,5 @@
 
 </nav>
 </body>
-
+{% endblock a %}
 </html>
