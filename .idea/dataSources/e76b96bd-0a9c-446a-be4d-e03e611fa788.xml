@@ -15141,12 +15141,10 @@ participant_id</ColNames>
       <Position>9</Position>
       <DataType>decimal(41)|0s</DataType>
     </column>
-    <column id="2864" parent="437" name="unique_users">
       <Position>10</Position>
       <DataType>bigint(21)|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="2865" parent="437" name="current_memory">
       <Position>11</Position>
       <DataType>text|0s</DataType>
     </column>
@@ -15162,7 +15160,6 @@ participant_id</ColNames>
       <Position>2</Position>
       <DataType>decimal(42)|0s</DataType>
     </column>
-    <column id="2869" parent="438" name="io_latency">
       <Position>3</Position>
       <DataType>text|0s</DataType>
     </column>
