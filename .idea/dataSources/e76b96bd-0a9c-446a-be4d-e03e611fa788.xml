@@ -15148,11 +15148,9 @@ participant_id</ColNames>
       <Position>11</Position>
       <DataType>text|0s</DataType>
     </column>
-    <column id="2866" parent="437" name="total_memory_allocated">
       <Position>12</Position>
       <DataType>text|0s</DataType>
     </column>
-    <column id="2867" parent="438" name="host">
       <Position>1</Position>
       <DataType>varchar(60)|0s</DataType>
     </column>
