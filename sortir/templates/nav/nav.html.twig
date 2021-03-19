@@ -19,9 +19,6 @@
 </head>
 
 <body>
-
-<!-- Creating a navigation bar using the
-     .navbar class of bootstrap -->
 <nav class="navbar navbar-expand-sm "  style="position: relative; background-color: #00487f">
 
     <a class="navbar-brand" style="color:white;" href="#">
@@ -29,29 +26,34 @@
         Sortir
     </a>
     <ul class="navbar-nav" >
-        {% if app.user %}
+        {% if is_granted ('ROLE_ADMIN') %}
+        <li class="nav-item">
+            <a class="nav-link" style="color: white;" href="#">Villes</a>
+            <li class="nav-item">
+            <a class="nav-link" style="color: white;" href="#">Sites</a>
 
-        <li class="nav-item">
-            <a class="nav-link" style="color:white;" href="#">
-                Villes
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" style="color:white;" href="#">
-                Sites
-            </a> <li class="nav-item">
+        {% endif %}
+        {% if app.user  %}
+            <li class="nav-item">
             <a class="nav-link" style="color:white;" href="{{ path('app_login') }}">
                 Accueil
             </a> <li class="nav-item">
             <a class="nav-link" style="color:white;" href="{{ path('user_profile', {id: 'id'}) }}">
                 Profil
             </a>
+    </li>
+        {% if is_granted ('ROLE_ADMIN') %}
+        <a class="nav-link" style="color: white" href="{{ path('app_register') }}">S'inscrire</a>
         </li>
-
+        {% endif %}
         <a class="nav-link" style="color: white" href="{{ path('app_logout') }}">Déconnexion</a>
+
         {% else %}
             <a class="nav-link" style="color: white" href="{{ path('app_login') }}">Se connecter</a>
+
         {% endif %}
+
+
 
 
     </ul>
@@ -59,5 +61,4 @@
 
 </nav>
 </body>
-
 </html>

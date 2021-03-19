@@ -45,6 +45,7 @@ class SortieController extends AbstractController
         Request $request
     ): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
         $sortie = new Sortie();
         $sortieForm = $this->createForm(SortieType::class, $sortie);
         $sortieForm->handleRequest($request);
