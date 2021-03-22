@@ -23,7 +23,7 @@ class ParticipantController extends AbstractController
         $sortie = $sortieRepository->find($id);
 
         $nbParticipant = count($sortie->getParticipant());
-        if ($nbParticipant < $sortie->getNbInscriptionsMax()-1){
+        if ($nbParticipant < $sortie->getNbInscriptionsMax()){
             $this->addFlash('succes', 'Inscription accépté !');
             $participant=$this->getUser();
 
