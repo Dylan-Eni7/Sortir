@@ -34,7 +34,7 @@
                         {% endfor %}
                     {% endif %}
                 </td>
-                <td><a href="{{ path('user_profile', { 'id': sortie.id})}}">{{ sortie.organisateur.username }}</a></td>
+                <td><a href="{{ path('user_profile', { 'id': sortie.organisateur.id})}}">{{ sortie.organisateur.username }}</a></td>
                 <td>
                     {% if sortie.participant is empty and sortie.etat == "Ouvert"%}
                         <a href="{{ path('participant_register', {id: sortie.id}) }}">S'inscrire</a> -
