@@ -1,0 +1,48 @@
+{% block title %}Gérer les villes{% endblock %}
+{% block body %}
+    {% include ('base.html.twig') %}
+    <h1>Gérer les villes</h1>
+
+    <form method="get" action="{{ path('admin_modify_ville') }}">
+        <table>
+            <thead>
+            <tr>
+                <th>Ville</th>
+                <th>Code postal</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for ville in villes %}
+                <tr>
+                    {% if ville.id == app.request.get('id') %}
+                        <input type="hidden" name="id" value="{{ ville.id }}">
+                        <th><input type="text" name="nomVille" value="{{ ville.nom }}"></th>
+                        <th><input type="number" name="codePostal" value="{{ ville.codePostal }}"></th>
+                        <th><input type="submit" value="Valider"></th>
+                    {% else %}
+                        <th>{{ ville.nom }}</th>
+                        <th>{{ ville.codePostal }}</th>
+                        <th><a href="{{ path('admin_create_ville', {id: ville.id}) }}">Modifier</a></th>
+                    {% endif %}
+                    <th> - <a href="{{ path('admin_delete_ville', {id: ville.id}) }}">Supprimer</a></th>
+                </tr>
+            {% endfor %}
+
+            </tbody>
+        </table>
+    </form>
+
+    {{ form_start(villeFormView) }}
+    {{ form_errors(villeFormView) }}
+
+    {{ form_label(villeFormView.nom) }}
+    {{ form_widget(villeFormView.nom) }}
+    {{ form_errors(villeFormView.nom) }}
+
+    {{ form_end(villeFormView) }}
+
+    <button class="btn btn-lg" style="background-color: lightcoral"
+            onclick="window.location.href='http://localhost:8080/outing/'">Annuler
+    </button>
+{% endblock %}
