@@ -1,16 +1,18 @@
+{% extends 'base.html.twig' %}
+{% block body %}
 <link href="{{ asset('css/CSS.css') }}" rel="stylesheet">
 <form action="{{ path('outing_modify_validate', {id: sortie.id}) }}" method="post">
-    <table border="1px">
+    <table class="table table-bordered" style="width:1000px; height:20px;" align="center">
         <thead>
         <tr>
-            <th colspan="4"><h1>Modifier une sortie</h1></th>
+            <th colspan="4"><h1 align="center">Modifier une sortie</h1></th>
         </tr>
         </thead>
         <tbody>
-        <tr>
-            <td>Nom de la sortie :</td>
+        <tr align="center">
+            <th style="color: #00487f">Nom de la sortie :</th>
             <td><input type="text" name="nomSortie" value="{{ sortie.nom }}"></td>
-            <td>Ville organisatrice :</td>
+            <th style="color: #00487f" align="center">Ville organisatrice :</th>
             <td>
                 <select name="villeOrganisatrice" id="ville-organisatrice"  >
                     <option value="{{ site.id }}">{{ site.nom }}</option>
@@ -22,15 +24,15 @@
                 </select>
             </td>
         </tr>
-        <tr>
-            <td>Date et heure de la sortie :</td>
+        <tr align="center">
+            <th style="color: #00487f">Date et heure de la sortie :</th>
             <td>
                 <input type="datetime-local" name="dateSortie" id="dateSortie"
                        value="{{ sortie.dateHeureDebut|date('Y-m-d') }}T{{ sortie.dateHeureDebut|date('h:m') }}"
                        min="{{ "now"|date('Y-m-d') }}T{{ "now"|date('h:m') }}"
                 >
             </td>
-            <td>Lieu :</td>
+            <th style="color: #00487f">Lieu :</th>
             <td>
                 <select id="lieu" name="lieuSortie">
                     <option value="{{ lieu.rue }}">{{ lieu.nom }}</option>
@@ -43,37 +45,37 @@
             </td>
         </tr>
 
-        <tr>
-            <td>Date limite d'inscription :</td>
-            <td>
+        <tr align="center">
+            <th style="color: #00487f">Date limite d'inscription :</th>
+            <td align="center">
                 <input type="datetime-local" name="dateLimite" id="dateLimite"
                        value="{{ sortie.dateLimiteInscription|date('Y-m-d') }}T{{ sortie.dateLimiteInscription|date('h:m') }}"
                        min="{{ "now"|date('Y-m-d') }}T{{ "now"|date('h:m') }}"
                        max="{{ sortie.dateHeureDebut|date('Y-m-d') }}T{{ sortie.dateHeureDebut|date('h:m') }}"
                 >
             </td>
-            <td>Ville :</td>
+            <th style="color: #00487f">Ville :</th>
             <td>{{ ville.nom }}</td>
         </tr>
-        <tr>
-            <td>Nombre de places :</td>
+        <tr align="center">
+            <th style="color: #00487f">Nombre de places :</th>
             <td><input type="number" name="nbPlaces" min="1" value="{{ sortie.nbInscriptionsMax }}"></td>
-            <td>Rue :</td>
+            <th style="color: #00487f">Rue :</th>
             <td><input type="text" name="rue" id="rue" value="{{ lieu.rue }}" disabled></td>
         </tr>
-        <tr>
-            <td>Durée en minutes :</td>
+        <tr align="center">
+            <th style="color: #00487f">Durée en minutes :</th>
             <td><input type="number" name="duree" min="1" value="{{ sortie.duree }}"></td>
-            <td>Code postal :</td>
+            <th style="color: #00487f">Code postal :</th>
             <td>{{ ville.CodePostal }}</td>
         </tr>
-        <tr>
-            <td>Description et infos :</td>
+        <tr align="center">
+            <th style="color: #00487f">Description et infos :</th>
             <td colspan="3"><textarea name="description" cols="80" rows="4">{{ sortie.infosSortie }}</textarea></td>
         </tr>
         </tbody>
     </table>
-    <input type="submit" name="button_1" value="Enregistrer">
+    <input style="margin-left: 420px" type="submit" name="button_1" value="Enregistrer">
     <input type="submit" name="button_2" value="Publier la sortie">
 </form>
 
@@ -100,3 +102,4 @@
     }
 
 </script>
+{% endblock %}
