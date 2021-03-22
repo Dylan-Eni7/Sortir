@@ -1,4 +1,4 @@
-{% block title %}Gerer les sites{% endblock %}
+
 {% block body %}
 {% include ('base.html.twig') %}
     <h1 style="margin-left: 20px">Gérer les sites</h1>
@@ -33,7 +33,7 @@
 </form>
 
 
-    <div style="width: 400px; margin-left: 20px">
+    <div style="width: 400px; margin-left: 20px;">
     {{ form_start(siteFormView) }}
     {{ form_errors(siteFormView) }}
 
@@ -45,5 +45,5 @@
     </div>
 
 
-    <button class="btn btn-lg" style="background-color: lightcoral; margin-left: 20px" onclick="window.location.href='http://localhost:8080/outing/'">Annuler</button>
+    <button class="btn btn-mi" style="background-color: #bf1209; color: white; margin-left: 20px" onclick="window.location.href='http://localhost:8080/outing/'">Annuler</button>
 {% endblock %}

@@ -1,23 +1,36 @@
+{% extends 'base.html.twig' %}
 {% block body %}
-{% include ('base.html.twig') %}
+
 
 <thead>
-<tr>
-    <th colspan="4"><h1>{{ participant.username }}</h1></th>
-</tr>
+
+    <th colspan="4"><h1  style="padding-top: 20px; margin-left: 600px">{{ participant.username }}</h1></th>
 </thead>
-<tbody>
-<br>
-    <td>Nom :</td>
-    <td>{{ participant.nom }}</td></br>
-    <td>Prénom :</td>
-    <td>{{ participant.prenom }}</td></br>
-    <td>Téléphone :</td>
-    <td>{{ participant.telephone }}</td></br>
-    <td>E-mail :</td>
-    <td>{{ participant.mail }}</td></br>
-    <td>Site de rattachement :</td>
-    <td>{{ participant.site.nom }}</td></br>
-</tr>
-</tbody>
+
+    <table style="margin-left: 500px; width: 400px; border-collapse: separate; border-spacing: 15px">
+<tr>
+    <th>Nom :</th>
+    <td>{{ participant.nom }}</td>
+</tr><br><br>
+        <tr>
+    <th>Prénom :</th>
+    <td>{{ participant.prenom }}</td>
+        </tr>
+        <tr>
+            <th>Téléphone :</th>
+    <td>{{ participant.telephone }}</td>
+        </tr>
+        <tr>
+        <th>E-mail :</th>
+    <td>{{ participant.mail }}</td>
+        </tr>
+        <tr>
+            <th>Site de rattachement :</th>
+    <td>{{ participant.site.nom }}</td>
+
+        </tr>
+
+    </table><br><br>
+    <button class="btn bt-lg" style="background-color: #00487f; color: #e0e0e0; margin-left: 650px;" onclick="window.location.href='http://localhost:8080/outing/'">Retour</button>
+
 {% endblock %}
