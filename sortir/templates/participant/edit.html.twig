@@ -2,10 +2,10 @@
 
 {% block body %}
 {% include ('base.html.twig') %}
-    <h1>
+    <h1 style="margin-left: 20px">
         Mon Profil
     </h1>
-    <div>
+    <div style="margin-left: 20px; width: 400px">
 {#        {% if app.user.photo is not null %}#}
 {#            <img class="img-profile-2 rounded-circle" src="{{ asset('files/' ~ app.user.photo) }}" alt="{{ app.user.username }}">#}
 {#        {% else %}#}
@@ -42,9 +42,9 @@
         {{ form_label(profilFormView.site) }}
         {{ form_widget(profilFormView.site, {'value' : app.user.site.nom }) }}
         {{ form_errors(profilFormView.site) }}
-    </div>
-    {{ form_end(profilFormView) }}
 
+    {{ form_end(profilFormView) }}
+    </div>
 {% endblock %}
 
 

@@ -18,37 +18,38 @@
             <td>{{ site.nom }}</td>
         </tr>
         <tr align="center">
-            <th scope="row" style="color: #00487f">Date et heure de la sortie :</th>
-            <td>{{ sortie.dateHeureDebut|date('Y/m/d h:m') }}</td>
+            <th scope="row" style="color: #00487f">Nombre de place :</th>
+            <td>{{ sortie.nbInscriptionsMax }}</td>
         </tr>
         <tr align="center">
-            <th scope="row" style="color: #00487f">Lieu :</th>
-            <td>{{ lieu.nom }}</td>
+            <th scope="row" style="color: #00487f">Date et heure de la sortie :</th>
+            <td>{{ sortie.dateHeureDebut|date('Y/m/d h:m') }}</td>
         </tr>
         <tr align="center">
             <th scope="row" style="color: #00487f">Date limite d'inscription :</th>
             <td>{{ sortie.dateLimiteInscription|date('Y/m/d h:m') }}</td>
         </tr>
         <tr align="center">
-            <th scope="row" style="color: #00487f">Ville :</th>
-            <td>{{ ville.nom }}</td>
-        </tr>
-        <tr align="center">
-            <th scope="row" style="color: #00487f">Nombre de place :</th>
-            <td>{{ sortie.nbInscriptionsMax }}</td>
+            <th scope="row" style="color: #00487f">Lieu :</th>
+            <td>{{ lieu.nom }}</td>
         </tr>
         <tr align="center">
             <th scope="row" style="color: #00487f">Rue :</th>
             <td>{{ lieu.rue }}</td>
         </tr>
         <tr align="center">
-            <th scope="row" style="color: #00487f">Durée :</th>
-            <td >{{ sortie.duree }} minutes</td>
-        </tr>
-        <tr align="center">
             <th scope="row" style="color: #00487f">Code postal :</th>
             <td>{{ ville.CodePostal}}</td>
         </tr>
+        <tr align="center">
+            <th scope="row" style="color: #00487f">Ville :</th>
+            <td>{{ ville.nom }}</td>
+        </tr>
+        <tr align="center">
+            <th scope="row" style="color: #00487f">Durée :</th>
+            <td >{{ sortie.duree }} minutes</td>
+        </tr>
+
         <tr align="center">
             <th scope="row" style="color: #00487f">Latitude :</th>
             {% if lieu.latitude != " " or lieu.longitude != " " %}
@@ -81,12 +82,10 @@
         </thead>
     <tbody>
 
-    <tr>
-        <td>Pseudo</td><td>Nom</td>
-    </tr>
+
         {% for participant in sortie.participant %}
             <tr>
-                <td><a href="{{ path('user_profile', { 'id': participant.id})}}" class="btn btn-success">{{ participant.username }} </a> </td><td><a href="{{ path('user_profile', { 'id': participant.id})}}" class="btn btn-success">{{ participant.prenom }} {{ participant.nom }}</a></td>
+                <td><a href="{{ path('user_profile', { 'id': participant.id})}}" class="btn btn-mi" style="background-color: silver">{{ participant.username }} </a> </td><td><a href="{{ path('user_profile', { 'id': participant.id})}}" class="btn btn-mi" style="background-color: silver">{{ participant.prenom }} {{ participant.nom }}</a></td>
             </tr>
         {% endfor %}
     </tbody>

@@ -1,14 +1,14 @@
 {% block title %}Gérer les villes{% endblock %}
 {% block body %}
     {% include ('base.html.twig') %}
-    <h1>Gérer les villes</h1>
+    <h1 style="margin-left: 20px">Gérer les villes</h1>
 
-    <form method="get" action="{{ path('admin_modify_ville') }}">
+    <form method="get" action="{{ path('admin_modify_ville') }}" style="margin-left: 20px">
         <table>
             <thead>
             <tr>
-                <th>Ville</th>
-                <th>Code postal</th>
+                <th style="width: 200px">Ville</th>
+                <th style="width: 200px">Code postal</th>
                 <th>Actions</th>
             </tr>
             </thead>
@@ -17,8 +17,8 @@
                 <tr>
                     {% if ville.id == app.request.get('id') %}
                         <input type="hidden" name="id" value="{{ ville.id }}">
-                        <th><input type="text" name="nomVille" value="{{ ville.nom }}"></th>
-                        <th><input type="number" name="codePostal" value="{{ ville.codePostal }}"></th>
+                        <th style="width: 200px"><input type="text" name="nomVille" value="{{ ville.nom }}"></th>
+                        <th style="width: 200px" ><input type="number" name="codePostal" value="{{ ville.codePostal }}"></th>
                         <th><input type="submit" value="Valider"></th>
                     {% else %}
                         <th>{{ ville.nom }}</th>
@@ -32,7 +32,7 @@
             </tbody>
         </table>
     </form>
-
+<div style="width: 560px; margin-left: 20px">
     {{ form_start(villeFormView) }}
     {{ form_errors(villeFormView) }}
 
@@ -41,8 +41,8 @@
     {{ form_errors(villeFormView.nom) }}
 
     {{ form_end(villeFormView) }}
-
-    <button class="btn btn-lg" style="background-color: lightcoral"
+</div>
+    <button class="btn btn-lg" style="background-color: lightcoral; margin-left: 20px"
             onclick="window.location.href='http://localhost:8080/outing/'">Annuler
     </button>
 {% endblock %}
