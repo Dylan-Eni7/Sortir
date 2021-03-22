@@ -22,10 +22,17 @@ class ParticipantController extends AbstractController
         $sortieRepository = $entityManager->getRepository(Sortie::class);
         $sortie = $sortieRepository->find($id);
 
-        $participant=$this->getUser();
+        $nbParticipant = count($sortie->getParticipant());
+        if ($nbParticipant < $sortie->getNbInscriptionsMax()-1){
+            $this->addFlash('succes', 'Inscription accépté !');
+            $participant=$this->getUser();
 
-        $participant->addSorty($sortie);
-        $entityManager->flush();
+            $participant->addSorty($sortie);
+            $entityManager->flush();
+        } else {
+            $this->addFlash('error', "Il n'y a plus de place pour cette sortie !");
+        }
+
         return $this->redirectToRoute("outing_list");
     }
     /**
