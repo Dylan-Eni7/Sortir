@@ -19,6 +19,7 @@ class SortieRepository extends ServiceEntityRepository
         parent::__construct($registry, Sortie::class);
     }
 
+
     public function modify($id, $nomSortie, $villeOrganisatrice, $dateSortie, $lieuSortie, $dateLimite, $nbPlaces,
                            $duree, $description, $etat)
     {
@@ -30,6 +31,7 @@ class SortieRepository extends ServiceEntityRepository
 
         return $query->getResult();
     }
+
 
 
     // /**

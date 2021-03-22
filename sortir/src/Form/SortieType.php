@@ -26,6 +26,7 @@ class SortieType extends AbstractType
             ->add('dateHeureDebut', DateTimeType::class,[
                 'label' => "Date et heure de la sortie : ",
                 'widget' => 'single_text',
+                'min' => 'date'
             ])
             ->add('dateLimiteInscription', DateTimeType::class,[
                 'label' => "Date limite d'inscription : ",
@@ -39,16 +40,11 @@ class SortieType extends AbstractType
 
             ->add('site', EntityType::class, [
                 'label' => "Ville organisatrice : ",
-                // looks for choices from this entity
                 'class' => Site::class,
-
-                // uses the User.username property as the visible option string
                 'choice_label' => 'nom',
-
-                // used to render a select box, check boxes or radios
-                // 'multiple' => true,
-                // 'expanded' => true,
+                 'expanded' => true,
             ])
+
 //            ->add('ville', EntityType::class, [
 //                'label' => "Ville : ",
 //                // looks for choices from this entity
@@ -56,26 +52,15 @@ class SortieType extends AbstractType
 //
 //                // uses the User.username property as the visible option string
 //                'choice_label' => 'nom',
-//
-//                // used to render a select box, check boxes or radios
-//                // 'multiple' => true,
-//                // 'expanded' => true,
 //            ])
+
             ->add('lieu', EntityType::class, [
-                // looks for choices from this entity
                 'class' => Lieu::class,
-
-                // uses the User.username property as the visible option string
                 'choice_label' => 'nom',
-
-                // used to render a select box, check boxes or radios
-                // 'multiple' => true,
-                // 'expanded' => true,
             ])
 
             ->add('Enregistrer', SubmitType::class)
             ->add('Publier', SubmitType::class)
-
         ;
     }
 
