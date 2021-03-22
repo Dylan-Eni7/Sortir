@@ -1,21 +1,23 @@
-
+{% block body %}
+{% include ('base.html.twig') %}
 
 <thead>
 <tr>
-    <th colspan="4"><h1>{{ app.user.username }}</h1></th>
+    <th colspan="4"><h1>{{ participant.username }}</h1></th>
 </tr>
 </thead>
 <tbody>
 <br>
     <td>Nom :</td>
-    <td>{{ app.user.nom }}</td></br>
+    <td>{{ participant.nom }}</td></br>
     <td>Prénom :</td>
-    <td>{{ app.user.prenom }}</td></br>
+    <td>{{ participant.prenom }}</td></br>
     <td>Téléphone :</td>
-    <td>{{ app.user.telephone }}</td></br>
+    <td>{{ participant.telephone }}</td></br>
     <td>E-mail :</td>
-    <td>{{ app.user.mail }}</td></br>
+    <td>{{ participant.mail }}</td></br>
     <td>Site de rattachement :</td>
-    <td>{{ app.user.site.nom }}</td></br>
+    <td>{{ participant.site.nom }}</td></br>
 </tr>
 </tbody>
+{% endblock %}

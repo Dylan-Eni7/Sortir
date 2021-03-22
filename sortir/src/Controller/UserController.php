@@ -53,13 +53,15 @@ class UserController extends AbstractController
     public function profile($id, EntityManagerInterface $entityManager): Response
 
     {
-        $user = $entityManager->getRepository(Participant::class)->find($id);
+
+        $user = $entityManager->find(Participant::class, $id);
         if ($user == null) {
             throw $this->createNotFoundException("L'utilisateur est absent dans la base de données. Essayez un autre ID !");
         }
+
         return $this->render("participant/profile.html.twig", [
             'controller_name' => 'ParticipantController',
-            'user_profil' => $user
+            'participant' => $user
         ]);
     }
 }

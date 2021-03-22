@@ -51,7 +51,7 @@
     </tr>
         {% for participant in sortie.participant %}
             <tr>
-                <td><a href="{{ path('user_profile', { 'id': id }) }}">{{ participant.username }} </a> </td><td><a href="{{ path('user_profile',  { 'id': user.id}) }}">{{ participant.prenom }} {{ participant.nom }}</a></td>
+                <td><a href="{{ path('user_profile', { 'id': participant.id})}}" class="btn btn-success">{{ participant.username }} </a> </td><td><a href="{{ path('user_profile', { 'id': participant.id})}}" class="btn btn-success">{{ participant.prenom }} {{ participant.nom }}</a></td>
             </tr>
         {% endfor %}
     </tbody>
