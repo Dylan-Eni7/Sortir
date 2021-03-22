@@ -7,7 +7,6 @@ use App\Entity\Sortie;
 use App\Entity\Site;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\ButtonType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -25,8 +24,7 @@ class SortieType extends AbstractType
             ])
             ->add('dateHeureDebut', DateTimeType::class,[
                 'label' => "Date et heure de la sortie : ",
-                'widget' => 'single_text',
-                'min' => 'date'
+                'widget' => 'single_text'
             ])
             ->add('dateLimiteInscription', DateTimeType::class,[
                 'label' => "Date limite d'inscription : ",

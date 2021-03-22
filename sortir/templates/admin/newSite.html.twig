@@ -1,0 +1,45 @@
+{% block title %}Gerer les sites{% endblock %}
+{% block body %}
+{% include ('base.html.twig') %}
+    <h1>Gérer les sites</h1>
+
+    <form method="get" action="{{ path('admin_modify_site') }}">
+        <table>
+            <thead>
+                <tr>
+                    <th>Ville</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for site in sites %}
+                <tr>
+                    <th>
+                        {% if site.id == app.request.get('id') %}
+                            <input type="hidden" name="id" value="{{ site.id }}">
+                            <input type="text" name="nomSite" value="{{ site.nom }}" onkeyup="this.value = this.value.toUpperCase()">
+                            <th><input type="submit" value="Valider"></th>
+                        {% else %}
+                            {{ site.nom }}
+                            <th><a href="{{ path('admin_create_site', {id: site.id}) }}">Modifier</a></th>
+                        {% endif %}
+                    </th>
+                    <th> - <a href="{{ path('admin_delete_site', {id: site.id}) }}">Supprimer</a></th>
+                </tr>
+            {% endfor %}
+
+            </tbody>
+        </table>
+</form>
+
+    {{ form_start(siteFormView) }}
+    {{ form_errors(siteFormView) }}
+
+    {{ form_label(siteFormView.nom) }}
+    {{ form_widget(siteFormView.nom) }}
+    {{ form_errors(siteFormView.nom) }}
+
+    {{ form_end(siteFormView) }}
+
+    <button class="btn btn-lg" style="background-color: lightcoral" onclick="window.location.href='http://localhost:8080/outing/'">Annuler</button>
+{% endblock %}

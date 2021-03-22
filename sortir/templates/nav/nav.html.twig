@@ -28,9 +28,9 @@
     <ul class="navbar-nav" >
         {% if is_granted ('ROLE_ADMIN') %}
         <li class="nav-item">
-            <a class="nav-link" style="color: white;" href="#">Villes</a>
+            <a class="nav-link" style="color: white;" href="{{ path('admin_create_ville') }}">Villes</a>
             <li class="nav-item">
-            <a class="nav-link" style="color: white;" href="#">Sites</a>
+            <a class="nav-link" style="color: white;" href="{{ path('admin_create_site') }}">Sites</a>
 
         {% endif %}
         {% if app.user  %}
