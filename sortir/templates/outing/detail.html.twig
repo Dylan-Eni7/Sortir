@@ -1,58 +1,90 @@
+{% extends 'base.html.twig' %}
+{% block body %}
 <link href="{{ asset('css/CSS.css') }}" rel="stylesheet">
 
-<table border="1px" id="sortieTable">
-    <thead>
-    <tr>
-        <th colspan="4"><h1>Afficher une sortie</h1></th>
-    </tr>
-    </thead>
+
+
+    <h4 align="center" style="color: #00487f; padding-top: 20px">Afficher une sortie</h4><br>
+    <table  class="table table-bordered" style="width:800px; height:200px;" align="center">
+
     <tbody>
-        <tr>
-            <td>Nom de la sortie : </td><td>{{ sortie.nom }}</td>
-            <td>Ville organisatrice : </td><td>{{ site.nom }}</td>
+        <thead>
+        <tr align="center">
+            <th scope="row" style="color: #00487f">Nom de la sortie :</th>
+            <td>{{ sortie.nom }}</td>
         </tr>
-        <tr>
-            <td>Date et heure de la sortie : </td><td>{{ sortie.dateHeureDebut|date('Y/m/d h:m') }}</td>
-            <td>Lieu : </td><td>{{ lieu.nom }}</td>
+        <tr align="center">
+            <th scope="row" style="color: #00487f">Ville organisatrice :</th>
+            <td>{{ site.nom }}</td>
         </tr>
-        <tr>
-            <td>Date limite d'inscription : </td><td>{{ sortie.dateLimiteInscription|date('Y/m/d h:m') }}</td>
-            <td>Ville : </td><td>{{ ville.nom }}</td>
+        <tr align="center">
+            <th scope="row" style="color: #00487f">Date et heure de la sortie :</th>
+            <td>{{ sortie.dateHeureDebut|date('Y/m/d h:m') }}</td>
         </tr>
-        <tr>
-            <td>Nombre de places : </td><td>{{ sortie.nbInscriptionsMax }}</td>
-            <td>Rue : </td><td>{{ lieu.rue }}</td>
+        <tr align="center">
+            <th scope="row" style="color: #00487f">Lieu :</th>
+            <td>{{ lieu.nom }}</td>
         </tr>
-        <tr>
-            <td>Durée : </td><td>{{ sortie.duree }} minutes</td>
-            <td>Code postal : </td><td>{{ ville.CodePostal }}</td>
+        <tr align="center">
+            <th scope="row" style="color: #00487f">Date limite d'inscription :</th>
+            <td>{{ sortie.dateLimiteInscription|date('Y/m/d h:m') }}</td>
         </tr>
-        {% if lieu.latitude != "" or lieu.longitude != "" %}
-        <tr>
-            <td>Latitude : </td><td>{{ lieu.latitude }}</td>
-            <td>Longitude : </td><td>{{ lieu.longitude }}</td>
+        <tr align="center">
+            <th scope="row" style="color: #00487f">Ville :</th>
+            <td>{{ ville.nom }}</td>
+        </tr>
+        <tr align="center">
+            <th scope="row" style="color: #00487f">Nombre de place :</th>
+            <td>{{ sortie.nbInscriptionsMax }}</td>
+        </tr>
+        <tr align="center">
+            <th scope="row" style="color: #00487f">Rue :</th>
+            <td>{{ lieu.rue }}</td>
+        </tr>
+        <tr align="center">
+            <th scope="row" style="color: #00487f">Durée :</th>
+            <td >{{ sortie.duree }} minutes</td>
+        </tr>
+        <tr align="center">
+            <th scope="row" style="color: #00487f">Code postal :</th>
+            <td>{{ ville.CodePostal}}</td>
+        </tr>
+        <tr align="center">
+            <th scope="row" style="color: #00487f">Latitude :</th>
+            {% if lieu.latitude != " " or lieu.longitude != " " %}
+            <td>{{ lieu.latitude}}</td>
+        </tr>
+        <tr align="center">
+            <th scope="row" style="color: #00487f">Longitude :</th>
+            <td>{{ lieu.longitude }}</td>
         </tr>
         {% endif %}
-        <tr>
-            <td>Description et infos : </td><td colspan="3">{{ sortie.infosSortie }} </td>
-        </tr>
-    </tbody>
-</table>
+        <tr align="center">
+        <th scope="row" style="color: #00487f">Descriptions et infos :</th>
+            <td>{{ sortie.infosSortie }}</td>
 
-<table border="1px">
-    <thead>
-    <tr>
-        <th colspan="2">Liste des participants :</th>
-    </tr>
-    </thead>
+        </tr>
+
+        </tbody>
+        </thead>
+
+    </table><br>
+
+
+    <h4 align="center" style="color: #00487f">Liste des participants</h4><br>
+    <table class="table table-bordered" style="width:800px; height:100px;" align="center">
+        <thead>
+        <tr align="center">
+            <th scope="col" colspan="1" style="color: #00487f">Pseudo</th>
+            <th scope="col" colspan="1" style="color: #00487f">Nom</th>
+        </tr>
+        </thead>
     <tbody>
-    <tr>
-        <td>Pseudo</td><td>Nom</td>
-    </tr>
-        {% for participant in sortie.participant %}
-            <tr>
-                <td>{{ participant.username }} </td><td>{{ participant.prenom }} {{ participant.nom }}</td>
-            </tr>
-        {% endfor %}
-    </tbody>
-</table>
+    {% for participant in sortie.participant %}
+<tr align="center">
+    <td>{{ participant.username}}</td>
+    <td>{{ participant.prenom}} {{ participant.nom }}</td>
+</tr>
+    {% endfor %}
+
+{% endblock %}
