@@ -19,6 +19,17 @@ class SortieRepository extends ServiceEntityRepository
         parent::__construct($registry, Sortie::class);
     }
 
+    public function modify($id, $nomSortie, $villeOrganisatrice, $dateSortie, $lieuSortie, $dateLimite, $nbPlaces,
+                           $duree, $description, $etat)
+    {
+        $query = $this->createQueryBuilder('s')
+            ->update('Sortie')
+            ->set('nom', 'test')
+            ->where('id = 9')
+            ->getQuery();
+
+        return $query->getResult();
+    }
 
     // /**
     //  * @return Sortie[] Returns an array of Sortie objects

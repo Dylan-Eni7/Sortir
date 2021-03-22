@@ -3,7 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\Lieu;
+use App\Entity\Site;
 use App\Entity\Sortie;
+use App\Entity\Ville;
 use App\Form\SortieType;
 use App\Repository\SortieRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -43,6 +45,7 @@ class SortieController extends AbstractController
         Request $request
     ): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
         $sortie = new Sortie();
         $sortieForm = $this->createForm(SortieType::class, $sortie);
         $sortieForm->handleRequest($request);
@@ -95,12 +98,70 @@ class SortieController extends AbstractController
     /**
      * @Route ("/modify/{id}", name="modify")
      */
-    public function modify($id): Response
+    public function modify($id, EntityManagerInterface $entityManager): Response
     {
-        return $this->render('outing/modify.html.twig',[
+        $sortie = $entityManager->find(Sortie::class, $id);
 
+        $siteRepository = $entityManager->getRepository(Site::class);
+        $lieuRepository = $entityManager->getRepository(Lieu::class);
+        $villeRepository = $entityManager->getRepository(Ville::class);
+
+        $sites = $siteRepository->findAll();
+        $lieux = $lieuRepository->findAll();
+        $villes = $villeRepository->findAll();
+
+        $site = $sortie->getSite();
+        $lieu = $sortie->getLieu();
+        $ville = $lieu->getVille();
+
+
+        return $this->render('outing/modify.html.twig',[
+            'sortie' => $sortie,
+
+            'site' => $site,
+            'lieu' => $lieu,
+            'ville' => $ville,
+
+            'sites' => $sites,
+            'lieux' => $lieux,
+            'villes' => $villes
         ]);
     }
+
+    /**
+     * @Route ("/modify/validate/{id}", name="modify_validate")
+     */
+    public function modify_validate($id, Request $request, EntityManagerInterface $entityManager): Response
+    {
+        $lieuRepository = $entityManager->getRepository(Lieu::class);
+
+        $nomSortie = $_POST["nomSortie"];
+        $villeOrganisatrice = $_POST["villeOrganisatrice"];
+        $dateSortie = $_POST["dateSortie"];
+
+        $lieuSortie = $_POST["lieuSortie"];
+        $lieuSortie = $lieuRepository->findOneBy(array('rue' => $lieuSortie));
+        $lieuSortie = $lieuSortie->getId();
+
+        $dateLimite = $_POST["dateLimite"];
+        $nbPlaces = $_POST["nbPlaces"];
+        $duree = $_POST["duree"];
+        $description = $_POST["description"];
+        if (isset($_POST["button_1"])) {
+        $etat = "En création";
+        }
+        if (isset($_POST["button_2"])){
+        $etat = "Ouvert";
+        }
+
+        $sortieRepository = $entityManager->getRepository(Sortie::class);
+        $sortieRepository->modify($id, $nomSortie, $villeOrganisatrice, $dateSortie, $lieuSortie, $dateLimite, $nbPlaces,
+            $duree, $description, $etat);
+        $sortie = $entityManager->find(Sortie::class, $id);
+
+        return $this->redirectToRoute("outing_list");
+    }
+
     /**
      * @Route ("/detail/{id}", name="detail")
      */

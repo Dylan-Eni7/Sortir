@@ -1,0 +1,102 @@
+<link href="{{ asset('css/CSS.css') }}" rel="stylesheet">
+<form action="{{ path('outing_modify_validate', {id: sortie.id}) }}" method="post">
+    <table border="1px">
+        <thead>
+        <tr>
+            <th colspan="4"><h1>Modifier une sortie</h1></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>Nom de la sortie :</td>
+            <td><input type="text" name="nomSortie" value="{{ sortie.nom }}"></td>
+            <td>Ville organisatrice :</td>
+            <td>
+                <select name="villeOrganisatrice" id="ville-organisatrice"  >
+                    <option value="{{ site.id }}">{{ site.nom }}</option>
+                    {% for s in sites %}
+                        {% if s.nom != site.nom %}
+                            <option value="{{ s.id }}">{{ s.nom }}</option>
+                        {% endif %}
+                    {% endfor %}
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>Date et heure de la sortie :</td>
+            <td>
+                <input type="datetime-local" name="dateSortie" id="dateSortie"
+                       value="{{ sortie.dateHeureDebut|date('Y-m-d') }}T{{ sortie.dateHeureDebut|date('h:m') }}"
+                       min="{{ "now"|date('Y-m-d') }}T{{ "now"|date('h:m') }}"
+                >
+            </td>
+            <td>Lieu :</td>
+            <td>
+                <select id="lieu" name="lieuSortie">
+                    <option value="{{ lieu.rue }}">{{ lieu.nom }}</option>
+                    {% for l in lieux %}
+                        {% if l.nom != lieu.nom %}
+                            <option value="{{ l.rue }}">{{ l.nom }}</option>
+                        {% endif %}
+                    {% endfor %}
+                </select>
+            </td>
+        </tr>
+
+        <tr>
+            <td>Date limite d'inscription :</td>
+            <td>
+                <input type="datetime-local" name="dateLimite" id="dateLimite"
+                       value="{{ sortie.dateLimiteInscription|date('Y-m-d') }}T{{ sortie.dateLimiteInscription|date('h:m') }}"
+                       min="{{ "now"|date('Y-m-d') }}T{{ "now"|date('h:m') }}"
+                       max="{{ sortie.dateHeureDebut|date('Y-m-d') }}T{{ sortie.dateHeureDebut|date('h:m') }}"
+                >
+            </td>
+            <td>Ville :</td>
+            <td>{{ ville.nom }}</td>
+        </tr>
+        <tr>
+            <td>Nombre de places :</td>
+            <td><input type="number" name="nbPlaces" min="1" value="{{ sortie.nbInscriptionsMax }}"></td>
+            <td>Rue :</td>
+            <td><input type="text" name="rue" id="rue" value="{{ lieu.rue }}" disabled></td>
+        </tr>
+        <tr>
+            <td>Durée en minutes :</td>
+            <td><input type="number" name="duree" min="1" value="{{ sortie.duree }}"></td>
+            <td>Code postal :</td>
+            <td>{{ ville.CodePostal }}</td>
+        </tr>
+        <tr>
+            <td>Description et infos :</td>
+            <td colspan="3"><textarea name="description" cols="80" rows="4">{{ sortie.infosSortie }}</textarea></td>
+        </tr>
+        </tbody>
+    </table>
+    <input type="submit" name="button_1" value="Enregistrer">
+    <input type="submit" name="button_2" value="Publier la sortie">
+</form>
+
+
+<script type="text/javascript">
+    document.getElementById("dateSortie").onchange = function () {
+        let input = document.getElementById("dateLimite");
+        this.setAttribute("value", this.value);
+
+        if (Date.parse(this.value) < Date.parse(input.value)) {
+            input.setAttribute("value", this.value);
+        }
+
+        input.setAttribute("max", this.value);
+    }
+
+    document.getElementById("dateLimite").onchange = function () {
+        this.setAttribute("value", this.value);
+    }
+
+    document.getElementById("lieu").onchange = function () {
+        let rueInput = document.getElementById("rue");
+        rueInput.setAttribute("value", this.value);
+    }
+
+</script>
