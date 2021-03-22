@@ -1,10 +1,10 @@
 {% extends 'base.html.twig' %}
 {% block body %}
 
-<link href="{{ asset('css/CSS.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/CSS.css') }}" rel="stylesheet">
 
-    <h4 align="center"  style="color: #00487f; padding-top: 20px;">Voici nos sorties</h4><br>
-    <table class="table table-bordered" style="width: 1100px" align="center" >
+    <h4 align="center" style="color: #00487f; padding-top: 20px;">Voici nos sorties</h4><br>
+    <table class="table table-bordered" style="width: 1100px" align="center">
         <thead>
         <tr>
             <th scope="col" style="color: #00487f;">Nom de la sortie</th>
@@ -26,24 +26,33 @@
                 <td align="center">{{ sortie.participant|length }} / {{ sortie.nbInscriptionsMax }}</td>
                 <td>{{ sortie.etat }}</td>
                 <td align="center">
-                    {% if sortie.getParticipant %}
-                        {% for participant in sortie.getParticipant %}
-                            {% if participant.id == app.user.id %}
-                                X
-                            {% endif %}
-                        {% endfor %}
+
+
+                    {% set jeSuisInscrit = false %}
+                    {% for participant in sortie.participant %}
+                        {% if participant.id == app.user.id %}
+                            {% set jeSuisInscrit = true %}
+                        {% endif %}
+                    {% endfor %}
+                    {% if jeSuisInscrit %}
+                        ✔
+                    {% endif %}
+                    {% if jeSuisInscrit == null %}
+                        ❌
                     {% endif %}
                 </td>
-                <td><a href="{{ path('user_profile', { 'id': sortie.organisateur.id})}}">{{ sortie.organisateur.username }}</a></td>
                 <td>
-                    {% if sortie.participant is empty and sortie.etat == "Ouvert"%}
+                    <a href="{{ path('user_profile', { 'id': sortie.organisateur.id}) }}">{{ sortie.organisateur.username }}</a>
+                </td>
+                <td>
+                    {% if sortie.participant is empty and sortie.etat == "Ouvert" %}
                         <a href="{{ path('participant_register', {id: sortie.id}) }}">S'inscrire</a> -
                     {% else %}
                         {% for participant in sortie.participant %}
                             {% if participant.id == app.user.id %}
                                 <a href="{{ path('participant_withdraw', {id: sortie.id}) }}">Se désister</a> -
                             {% else %}
-                                {% if sortie.etat == "Ouvert" and sortie.participant|length != sortie.nbInscriptionsMax%}
+                                {% if sortie.etat == "Ouvert" and sortie.participant|length != sortie.nbInscriptionsMax %}
                                     <a href="{{ path('participant_register', {id: sortie.id}) }}">S'inscrire</a> -
                                 {% endif %}
                             {% endif %}
