@@ -7,7 +7,10 @@ use App\Entity\Site;
 use App\Entity\Sortie;
 use App\Entity\Ville;
 use App\Form\SortieType;
+use App\Repository\LieuRepository;
+use App\Repository\SiteRepository;
 use App\Repository\SortieRepository;
+use App\Repository\VilleRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -131,17 +134,17 @@ class SortieController extends AbstractController
     /**
      * @Route ("/modify/validate/{id}", name="modify_validate")
      */
-    public function modify_validate($id, Request $request, EntityManagerInterface $entityManager): Response
+    public function modify_validate($id, Request $request, EntityManagerInterface $entityManager,
+                                    LieuRepository $lieuRepository, SiteRepository $siteRepository): Response
     {
-        $lieuRepository = $entityManager->getRepository(Lieu::class);
-
         $nomSortie = $_POST["nomSortie"];
         $villeOrganisatrice = $_POST["villeOrganisatrice"];
+        $villeOrganisatrice = $siteRepository->findOneBy(array('id' => $villeOrganisatrice));
+
         $dateSortie = $_POST["dateSortie"];
 
         $lieuSortie = $_POST["lieuSortie"];
         $lieuSortie = $lieuRepository->findOneBy(array('rue' => $lieuSortie));
-        $lieuSortie = $lieuSortie->getId();
 
         $dateLimite = $_POST["dateLimite"];
         $nbPlaces = $_POST["nbPlaces"];
@@ -154,10 +157,19 @@ class SortieController extends AbstractController
         $etat = "Ouvert";
         }
 
-        $sortieRepository = $entityManager->getRepository(Sortie::class);
-        $sortieRepository->modify($id, $nomSortie, $villeOrganisatrice, $dateSortie, $lieuSortie, $dateLimite, $nbPlaces,
-            $duree, $description, $etat);
         $sortie = $entityManager->find(Sortie::class, $id);
+        $sortie->setNom($nomSortie);
+        $sortie->setSite($villeOrganisatrice);
+
+        $sortie->setDateHeureDebut(new \DateTime($dateSortie));
+        $sortie->setLieu($lieuSortie);
+        $sortie->setDateLimiteInscription(new \DateTime($dateLimite));
+        $sortie->setNbInscriptionsMax($nbPlaces);
+        $sortie->setDuree($duree);
+        $sortie->setInfosSortie($description);
+        $sortie->setEtat($etat);
+
+        $entityManager->flush();
 
         return $this->redirectToRoute("outing_list");
     }

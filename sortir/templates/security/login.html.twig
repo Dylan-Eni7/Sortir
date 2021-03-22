@@ -1,5 +1,5 @@
 
-{% block title %}{% endblock %}
+{% block title %}Connexion{% endblock %}
 
 {% block body %}
     {{ include('nav/nav.html.twig') }}
@@ -17,9 +17,9 @@
         </div>
     {% endif %}
 
-    <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-    <label for="inputUsername">pseudo</label>
-    <input type="text" value="{{ last_username }}" name="username" id="inputUsername" class="form-control" required autofocus>
+    <h1 class="h3 mb-3 font-weight-normal">Veuillez renseigner vos identifiants de connexion</h1>
+    <label for="inputId">Email/Username</label>
+    <input type="text" value="{{ last_username }}" name="id" id="inputId" class="form-control" required autofocus>
     <label for="inputPassword">Password</label>
     <input type="password" name="password" id="inputPassword" class="form-control" required>
 
@@ -30,15 +30,15 @@
 {#        Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.#}
 {#        See https://symfony.com/doc/current/security/remember_me.html#}
 
-{#        <div class="checkbox mb-3">#}
-{#            <label>#}
-{#                <input type="checkbox" name="_remember_me"> Remember me#}
-{#            </label>#}
-{#        </div>#}
+        <div class="checkbox mb-3">
+            <label>
+                <input type="checkbox" name="_remember_me"> Remember me
+            </label>
+        </div>
 
 
     <button class="btn btn-lg" style="background-color: #00487f; color: #e0e0e0" type="submit">
-        Sign in
+        Connexion
     </button>
 </form>
         </div>
