@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use App\Entity\Participant;
 use App\Entity\Sortie;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -19,32 +18,43 @@ class ParticipantController extends AbstractController
      */
     public function register($id, EntityManagerInterface $entityManager): Response
     {
+        //Je récupère la sortie en BDD selon l'id envoyé.
         $sortieRepository = $entityManager->getRepository(Sortie::class);
         $sortie = $sortieRepository->find($id);
 
+        //Je compte le nombre de participant actuellement inscrit a la sortie
         $nbParticipant = count($sortie->getParticipant());
+
+        //Si il reste une place
         if ($nbParticipant < $sortie->getNbInscriptionsMax()){
-            $this->addFlash('succes', 'Inscription accépté !');
+
+            //Je récupère l'utilisateur
             $participant=$this->getUser();
 
+            //Je l'ajoute a la sortie correspondante
             $participant->addSorty($sortie);
             $entityManager->flush();
+
+            $this->addFlash('success', 'Inscription accepté !');
         } else {
             $this->addFlash('error', "Il n'y a plus de place pour cette sortie !");
         }
-
         return $this->redirectToRoute("outing_list");
     }
+
     /**
      * @Route ("/withdraw/{id}", name="withdraw")
      */
     public function withdraw($id, EntityManagerInterface $entityManager): Response
     {
+        //Je récupère la sortie en BDD selon l'id envoyé.
         $sortieRepository = $entityManager->getRepository(Sortie::class);
         $sortie = $sortieRepository->find($id);
 
+        //Je récupère l'utilisateur
         $participant=$this->getUser();
 
+        //Je retire l'utilisateur de la sortie
         $participant->removeSorty($sortie);
         $entityManager->flush();
         return $this->redirectToRoute("outing_list");
