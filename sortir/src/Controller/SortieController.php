@@ -107,11 +107,51 @@ class SortieController extends AbstractController
     /**
      * @Route ("/cancel/{id}", name="cancel")
      */
-    public function cancel($id): Response
+    public function cancel($id, EntityManagerInterface $entityManager): Response
     {
-        return $this->render('outing/cancel.html.twig',[
+        //Si je ne suis pas Admin, je refuse l'acces à la page.
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
 
+        //Je récupère en BDD, la sortie selon l'id envoyé.
+        $sortieRepository = $entityManager->getRepository(Sortie::class);
+        $sortie = $sortieRepository->find($id);
+
+        //Je récupère le Site/Lieu/Ville de la sortie que je modifie.
+        $site = $sortie->getSite();
+        $lieu = $sortie->getLieu();
+        $ville = $lieu->getVille();
+
+        return $this->render('outing/cancel.html.twig', [
+            'sortie' => $sortie,
+
+            'site' => $site,
+            'lieu' => $lieu,
+            'ville' => $ville
         ]);
+    }
+
+    /**
+     * @Route ("/cancel/validate/{id}", name="cancel_validate")
+     */
+    public function cancelValidate($id, EntityManagerInterface $entityManager): Response
+    {
+        //Si je ne suis pas Admin, je refuse l'acces à la page.
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+
+        //Je récupère toutes les infos envoyés dans l'URL depuis mon formulaire.
+        $motif = $_POST["motif"];
+
+        //Je récupère en BDD, la sortie selon l'id envoyé.
+        $sortieRepository = $entityManager->getRepository(Sortie::class);
+        $sortie = $sortieRepository->find($id);
+
+        $sortie->setEtat("Annulé");
+        $sortie->setInfosSortie($motif);
+
+        //Je sauvegarde en BDD.
+        $entityManager->flush();
+
+        return $this->redirectToRoute("outing_list");
     }
 
     /**

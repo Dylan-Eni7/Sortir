@@ -61,7 +61,7 @@
                         {% else %}
                             <a href="{{ path('outing_detail', {id: sortie.id}) }}">Afficher</a>
                             {% if sortie.etat == "Ouvert" %}
-                                - <a href="index.html.twig" class="warning">Annuler</a>
+                                - <a href="{{ path('outing_cancel', {id: sortie.id}) }}" class="warning">Annuler</a>
                             {% endif %}
                         {% endif %}
                     {% else %}

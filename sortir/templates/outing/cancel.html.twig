@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+{% block title %}Annuler une sortie{% endblock %}
+{% block body %}
+<link href="{{ asset('css/CSS.css') }}" rel="stylesheet">
+<form action="{{ path('outing_cancel_validate', {id: sortie.id}) }}" method="post">
+    <table class="table table-bordered" style="width:1000px; height:20px;" align="center">
+        <thead>
+        <tr>
+            <th colspan="2"><h1 align="center">Annuler une sortie</h1></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr align="center">
+            <td>Nom de la sortie : </td><td>{{ sortie.nom }}</td>
+        </tr>
+        <tr align="center">
+            <td>Date de la sortie : </td><td>{{ sortie.dateHeureDebut|date('Y-m-d h:i') }}</td>
+        </tr>
+        <tr align="center">
+            <td>Ville organisatrice : </td><td>{{ site.nom }}</td>
+        </tr>
+        <tr align="center">
+            <td>Lieu : </td><td>{{ lieu.nom }} {{ lieu.rue }} {{ ville.codePostal }} {{ ville.nom }}</td>
+        </tr>
+        <tr align="center">
+            <td>Motif : </td><td><textarea name="motif" rows="2" cols="40" wrap="soft"> </textarea></td>
+        </tr>
+        </tbody>
+    </table>
+    <input class="btn btn-mi" style="margin-left: 45%; background-color: lightskyblue" onchange="ecriture()" type="submit" value="Enregistrer">
+    <a class="btn btn-mi" style="background-color: lightcoral" href="{{ path('outing_list') }}">Annuler</a>
+</form>
+
+{% endblock %}
