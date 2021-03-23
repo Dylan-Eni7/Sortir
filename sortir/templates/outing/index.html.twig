@@ -4,7 +4,9 @@
     <link href="{{ asset('css/CSS.css') }}" rel="stylesheet">
 
     <h4 align="center" style="color: #00487f; padding-top: 20px;">Voici nos sorties</h4><br>
-    <table class="table table-bordered" style="width: 1100px" align="center">
+    <h6 align="right" style="margin-right: 100px">Date du jour : {{ date|date('d/m/Y') }}</h6>
+    <h6 align="right" style="margin-right: 100px">Participant : {{ participant.username }}</h6>
+    <table class="table table-bordered" style="width: 1100px; margin-top: 40px" align="center">
         <thead>
         <tr>
             <th scope="col" style="color: #00487f;">Nom de la sortie</th>
@@ -74,6 +76,7 @@
         {% endfor %}
         </tbody>
     </table>
+    <a class="btn btn-mi" style="background-color: #00487f; color: white; margin-left: 90px" href="{{ path('outing_new') }}">Créer une sortie</a>
 
 {% endblock %}
 

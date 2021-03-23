@@ -43,3 +43,5 @@ security:
     access_control:
          - { path: ^/outing, roles: ROLE_USER }
          - { path: ^/outing/new, roles: ROLE_ADMIN }
+         - { path: ^/admin/create/site, roles: ROLE_ADMIN }
+         - { path: ^/admin/create/ville, roles: ROLE_ADMIN }
