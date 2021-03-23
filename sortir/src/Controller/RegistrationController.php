@@ -22,28 +22,31 @@ class RegistrationController extends AbstractController
                              GuardAuthenticatorHandler $guardHandler,
                              LoginFormAuthenticator $authenticator): Response
     {
+        //Je créer un nouveau Participant
         $user = new Participant();
+
+        //Je créer un formulaire
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
 
+        //Si le formulaire est validé et valide
         if ($form->isSubmitted() && $form->isValid()) {
-            // encode the plain password
+            // Le mot de passe s'encode
             $user->setPassword(
                 $passwordEncoder->encodePassword(
                     $user,
                     $form->get('plainPassword')->getData()
                 )
             );
-            if (stripos($user->getMail(), 'superadmin') !== false){
-                $user->setRoles(['ROLE_USER', 'ROLE_SUPER_ADMIN']);
-            } elseif (stripos($user->getMail(), 'Admin') !== false){
+
+            //Si il y a Admin dans le mail, alors on attribut le ROLE_ADMIN
+            if (stripos($user->getMail(), 'Admin') !== false){
                 $user->setRoles(['ROLE_ADMIN']);
             }
 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);
             $entityManager->flush();
-            // do anything else you need here, like send an email
 
             return $guardHandler->authenticateUserAndHandleSuccess(
                 $user,
