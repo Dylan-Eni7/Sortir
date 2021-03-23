@@ -22,10 +22,10 @@ class RegistrationController extends AbstractController
                              GuardAuthenticatorHandler $guardHandler,
                              LoginFormAuthenticator $authenticator): Response
     {
-        //Je créer un nouveau Participant
+        //Je crée un nouveau Participant
         $user = new Participant();
 
-        //Je créer un formulaire
+        //Je crée un formulaire
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
 
@@ -39,7 +39,7 @@ class RegistrationController extends AbstractController
                 )
             );
 
-            //Si il y a Admin dans le mail, alors on attribut le ROLE_ADMIN
+            //S'il y a Admin dans le mail, alors on attribut le ROLE_ADMIN
             if (stripos($user->getMail(), 'Admin') !== false){
                 $user->setRoles(['ROLE_ADMIN']);
             }
