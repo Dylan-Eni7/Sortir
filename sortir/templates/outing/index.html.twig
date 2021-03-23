@@ -37,7 +37,7 @@
                     {% if jeSuisInscrit %}
                         ✔
                     {% endif %}
-                    {% if jeSuisInscrit == null %}
+                    {% if jeSuisInscrit == false %}
                         ❌
                     {% endif %}
                 </td>
@@ -45,18 +45,10 @@
                     <a href="{{ path('user_profile', { 'id': sortie.organisateur.id}) }}">{{ sortie.organisateur.username }}</a>
                 </td>
                 <td>
-                    {% if sortie.participant is empty and sortie.etat == "Ouvert" %}
+                    {% if jeSuisInscrit == false and sortie.etat == "Ouvert" and sortie.participant|length != sortie.nbInscriptionsMax %}
                         <a href="{{ path('participant_register', {id: sortie.id}) }}">S'inscrire</a> -
-                    {% else %}
-                        {% for participant in sortie.participant %}
-                            {% if participant.id == app.user.id %}
-                                <a href="{{ path('participant_withdraw', {id: sortie.id}) }}">Se désister</a> -
-                            {% else %}
-                                {% if sortie.etat == "Ouvert" and sortie.participant|length != sortie.nbInscriptionsMax %}
-                                    <a href="{{ path('participant_register', {id: sortie.id}) }}">S'inscrire</a> -
-                                {% endif %}
-                            {% endif %}
-                        {% endfor %}
+                    {% elseif jeSuisInscrit == true %}
+                        <a href="{{ path('participant_withdraw', {id: sortie.id}) }}">Se désister</a> -
                     {% endif %}
 
                     {% if sortie.organisateur.id == app.user.id %}
