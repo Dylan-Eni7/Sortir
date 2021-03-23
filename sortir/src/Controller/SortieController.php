@@ -29,11 +29,11 @@ class SortieController extends AbstractController
     {
         /** @var SortieRepository $sortieRepository */
 
-        //Je créer un tableau contenant toutes les sorties de la BDD
+        //Je crée un tableau contenant toutes les sorties de la BDD
         $sortieRepository = $entityManager->getRepository(Sortie::class);
         $sorties = $sortieRepository->findAll();
 
-        //J'envois mon tableau de Sorties sur la page twig
+        //J'envoie mon tableau de Sorties sur la page twig
         return $this->render('outing/index.html.twig',
             [
                 'sorties' => $sorties,
@@ -49,26 +49,26 @@ class SortieController extends AbstractController
         Request $request
     ): Response
     {
-        //Si je ne suis pas Admin, je reffuse l'acces à la page.
+        //Si je ne suis pas Admin, je refuse l'acces à la page.
         $this->denyAccessUnlessGranted('ROLE_ADMIN');
 
-        //Je créer une nouvelle sortie.
+        //Je crée une nouvelle sortie.
         $sortie = new Sortie();
 
-        //Je créer le formulaire.
+        //Je crée le formulaire.
         $sortieForm = $this->createForm(SortieType::class, $sortie);
         $sortieForm->handleRequest($request);
 
-        //J'assigne l'organisateur à la sortie selon l'utilisateur connécté.
+        //J'assigne l'organisateur à la sortie selon l'utilisateur connecté.
         $sortie->setOrganisateur($this->getUser());
 
         //Si le formulaire est envoyé et valide
         if ($sortieForm->isSubmitted() && $sortieForm->isValid()) {
-            //Si j'ai cliqué sur Enregistrer, j'assigne l'état "En création" à ma sortie.
+            //Si je clique sur Enregistrer, j'assigne l'état "En création" à ma sortie.
             if ($sortieForm->get('Enregistrer')->isClicked()) {
                 $sortie->setEtat("En création");
             }
-            //Si j'ai cliqué sur Publier, j'assigne l'état "Ouvert" à ma sortie.
+            //Si je clique sur Publier, j'assigne l'état "Ouvert" à ma sortie.
             if ($sortieForm->get('Publier')->isClicked()) {
                 $sortie->setEtat("Ouvert");
             }
@@ -93,11 +93,11 @@ class SortieController extends AbstractController
      */
     public function delete($id, EntityManagerInterface $entityManager): Response
     {
-        //Je récupère en BDD la sortie selon l'id envoyé.
+        //Je récupère en BDD, la sortie selon l'id envoyé.
         $sortieRepository = $entityManager->getRepository(Sortie::class);
         $sortie = $sortieRepository->find($id);
 
-        //Je supprime la sortie corréspondante et sauvegarde le changement en BDD.
+        //Je supprime la sortie correspondante et sauvegarde le changement en BDD.
         $entityManager->remove($sortie);
         $entityManager->flush();
 
@@ -119,7 +119,7 @@ class SortieController extends AbstractController
      */
     public function modify($id, EntityManagerInterface $entityManager): Response
     {
-        //Je rechèrche la sortie en BDD corréspondante selon l'id envoyé.
+        //Je recherche la sortie en BDD correspondante selon l'id envoyé.
         $sortie = $entityManager->find(Sortie::class, $id);
 
         //Je récupère les repository afin de manipuler les Site/Lieu/Ville.
@@ -127,7 +127,7 @@ class SortieController extends AbstractController
         $lieuRepository = $entityManager->getRepository(Lieu::class);
         $villeRepository = $entityManager->getRepository(Ville::class);
 
-        //Je récupère les Sites/Lieux/Villes éxistant dans la BDD et les stock dans des tableaux.
+        //Je récupère les Sites/Lieux/Villes existant dans la BDD et les stockent dans des tableaux.
         $sites = $siteRepository->findAll();
         $lieux = $lieuRepository->findAll();
         $villes = $villeRepository->findAll();
@@ -183,7 +183,7 @@ class SortieController extends AbstractController
         $etat = "Ouvert";
         }
 
-        //Je récupère en BDD la sortie corréspondante a l'id envoyé.
+        //Je récupère en BDD la sortie correspondante à l'id envoyé.
         $sortie = $entityManager->find(Sortie::class, $id);
 
         //J'assigne les valeurs aux paramètres de ma sortie.
@@ -208,7 +208,7 @@ class SortieController extends AbstractController
      */
     public function detail($id, EntityManagerInterface $entityManager): Response
     {
-        //Je récupère la sortie en BDD corréspondant à l'id envoyé.
+        //Je récupère la sortie en BDD correspondant à l'id envoyé.
         $sortie = $entityManager->find(Sortie::class, $id);
 
         //Je récupère le Site/Lieu/Ville associé à ma sortie.
