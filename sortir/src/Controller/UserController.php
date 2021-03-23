@@ -35,10 +35,11 @@ class UserController extends AbstractController
 
             $entityManager->persist($user);
             $entityManager->flush();
-
+            $this->addFlash('success', '✔ Profil modifié ! ');
             return $this->redirectToRoute("user_edit", ["id" => $user->getId()]);
 
         }
+
         return $this->render('participant/edit.html.twig', [
             'profilFormView' => $profilform->createView(),
             'user' => $user

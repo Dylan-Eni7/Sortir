@@ -27,8 +27,8 @@ class RegistrationFormType extends AbstractType
             ->add('telephone')
             ->add('administrateur', ChoiceType::class, [
                 'choices'  => [
-                    'No' => false,
-                    'Yes' => true,
+                    'Non' => false,
+                    'Oui' => true,
                 ],
             ])
             ->add('site', EntityType::class, [

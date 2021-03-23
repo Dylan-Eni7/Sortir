@@ -53,7 +53,7 @@ class AdminController extends AbstractController
             $entityManager->persist($site);
             $entityManager->flush();
 
-            $this->addFlash('success', 'Votre site a bien été ajouté !');
+            $this->addFlash('success', '✔ Votre site a bien été ajouté !');
             return $this->redirectToRoute(
                 'admin_create_site'
             );
@@ -81,7 +81,7 @@ class AdminController extends AbstractController
         $site->setNom(strtoupper($nomSite));
         $entityManager->flush();
 
-        $this->addFlash('success', 'Votre site a bien été mis a jour !');
+        $this->addFlash('success', '✔ Votre site a bien été mis a jour !');
         return $this->redirectToRoute(
             'admin_create_site'
         );
@@ -101,7 +101,7 @@ class AdminController extends AbstractController
         $entityManager->remove($site);
         $entityManager->flush();
 
-        $this->addFlash('success', 'Votre site a bien été supprimé !');
+        $this->addFlash('success', '✔ Votre site a bien été supprimé !');
         return $this->redirectToRoute("admin_create_site");
     }
 
@@ -132,7 +132,7 @@ class AdminController extends AbstractController
             $entityManager->persist($ville);
             $entityManager->flush();
 
-            $this->addFlash('success', 'Votre ville a bien été ajouté !');
+            $this->addFlash('success', '✔ Votre ville a bien été ajouté !');
             return $this->redirectToRoute(
                 'admin_create_ville'
             );
@@ -165,7 +165,7 @@ class AdminController extends AbstractController
 
         $entityManager->flush();
 
-        $this->addFlash('success', 'Votre ville a bien été mis a jour !');
+        $this->addFlash('success', '✔ Votre ville a bien été mis a jour !');
         return $this->redirectToRoute(
             'admin_create_ville'
         );
@@ -185,7 +185,7 @@ class AdminController extends AbstractController
         $entityManager->remove($ville);
         $entityManager->flush();
 
-        $this->addFlash('success', 'Votre ville a bien été supprimé !');
+        $this->addFlash('success', '✔ Votre ville a bien été supprimé !');
         return $this->redirectToRoute("admin_create_ville");
     }
 
