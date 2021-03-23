@@ -33,7 +33,8 @@ class SortieController extends AbstractController
         $sortieRepository = $entityManager->getRepository(Sortie::class);
         $sorties = $sortieRepository->findAll();
 
-
+        $date = new \DateTime('now');
+        $participant = $this->getUser();
 
 
 
@@ -42,6 +43,8 @@ class SortieController extends AbstractController
         return $this->render('outing/index.html.twig',
             [
                 'sorties' => $sorties,
+                'date' => $date,
+                'participant' => $participant
             ]
         );
     }
