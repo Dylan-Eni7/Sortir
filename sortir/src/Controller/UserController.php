@@ -32,9 +32,7 @@ class UserController extends AbstractController
 
             $hashed = $passwordEncoder->encodePassword($user, $user->getPassword());
             $user->setPassword($hashed);
-            if ($user->setPassword() == null) {
-                $user->getPassword();
-            }
+
             $entityManager->persist($user);
             $entityManager->flush();
 
