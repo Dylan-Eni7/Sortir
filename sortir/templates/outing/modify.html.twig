@@ -1,4 +1,5 @@
 {% extends 'base.html.twig' %}
+{% block title %}Modifier une sortie{% endblock %}
 {% block body %}
 <link href="{{ asset('css/CSS.css') }}" rel="stylesheet">
 <form action="{{ path('outing_modify_validate', {id: sortie.id}) }}" method="post">

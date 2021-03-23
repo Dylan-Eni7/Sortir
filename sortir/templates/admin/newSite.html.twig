@@ -1,6 +1,7 @@
-
+{% extends ('base.html.twig') %}
+{% block title %}Gérer les sites{% endblock %}
 {% block body %}
-{% include ('base.html.twig') %}
+
     <h1 style="margin-left: 20px">Gérer les sites</h1>
 
     <form method="get" action="{{ path('admin_modify_site') }}" style="margin-left: 20px">
