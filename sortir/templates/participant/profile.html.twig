@@ -1,10 +1,11 @@
 {% extends 'base.html.twig' %}
+{% block title %}{{ participant.prenom }} {{ participant.nom|slice(0,1) }}{% endblock %}
 {% block body %}
-
+<head></head>
 
 <thead>
 
-    <th colspan="4"><h1  style="padding-top: 20px; margin-left: 600px">{{ participant.username }}</h1></th>
+    <th colspan="4"><h1  style="padding-top: 20px; margin-left: 600px;">{{ participant.username }}</h1></th>
 </thead>
 
     <table style="margin-left: 500px; width: 400px; border-collapse: separate; border-spacing: 15px">

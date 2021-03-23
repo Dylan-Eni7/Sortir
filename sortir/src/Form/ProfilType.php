@@ -23,22 +23,27 @@ class ProfilType extends AbstractType
             ->add('username', TextType::class,
                 [
                     'label' => 'Pseudo :',
+
                 ])
             ->add('nom', TextType::class,
                 [
                     'label' => 'Nom :',
+
                 ])
             ->add('prenom', TextType::class,
                 [
                     'label' => 'Prénom :',
+
                 ])
             ->add('mail', EmailType::class,
                 [
                     'label' => 'E-mail :',
+
                 ])
             ->add('telephone', TextType::class,
                 [
                     'label' => 'Téléphone :',
+
                 ])
             ->add('site', EntityType::class, [
                 'label' => 'Site :',

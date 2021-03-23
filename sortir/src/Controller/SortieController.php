@@ -33,10 +33,18 @@ class SortieController extends AbstractController
         $sortieRepository = $entityManager->getRepository(Sortie::class);
         $sorties = $sortieRepository->findAll();
 
+        $date = new \DateTime('now');
+        $participant = $this->getUser();
+
+
+
         //J'envoie mon tableau de Sorties sur la page twig
+
         return $this->render('outing/index.html.twig',
             [
                 'sorties' => $sorties,
+                'date' => $date,
+                'participant' => $participant
             ]
         );
     }

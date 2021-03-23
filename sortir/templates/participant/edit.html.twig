@@ -39,11 +39,10 @@
         {{ form_widget(profilFormView.password) }}
         {{ form_errors(profilFormView.password) }}
 
-
-
         {{ form_end(profilFormView) }}
+        <a class="btn btn-mi" style="background-color: #bf1209; color: white;" href="{{ path('outing_list') }}">Annuler</a>
     </div>
-    <a href="{{ path('outing_list') }}">Annuler</a>
+
 {% endblock %}
 
 

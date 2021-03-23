@@ -1,4 +1,6 @@
 {% extends 'base.html.twig' %}
+{% block title %}{{ sortie.nom }}{% endblock %}
+
 {% block body %}
 <link href="{{ asset('css/CSS.css') }}" rel="stylesheet">
 
@@ -77,30 +79,23 @@
 
 
     <h4 align="center" style="color: #00487f">Liste des participants</h4><br>
-    <table class="table table-bordered" style="width:800px; height:100px;" align="center">
+    <table class="table table-bordered" style="width:800px; " align="center">
         <thead>
         <tr align="center">
-            <th scope="col" colspan="1" style="color: #00487f">Pseudo</th>
-            <th scope="col" colspan="1" style="color: #00487f">Nom</th>
+            <th style="color: #00487f; width: 45%">Pseudo</th>
+            <th style="color: #00487f; width: 55%">Nom</th>
         </tr>
         </thead>
     <tbody>
 
 
         {% for participant in sortie.participant %}
-            <tr>
+            <tr align="center">
                 <td><a href="{{ path('user_profile', { 'id': participant.id})}}" class="btn btn-mi" style="background-color: silver">{{ participant.username }} </a> </td><td><a href="{{ path('user_profile', { 'id': participant.id})}}" class="btn btn-mi" style="background-color: silver">{{ participant.prenom }} {{ participant.nom }}</a></td>
             </tr>
         {% endfor %}
     </tbody>
 </table>
-
-    {% for participant in sortie.participant %}
-<tr align="center">
-    <td>{{ participant.username}}</td>
-    <td>{{ participant.prenom}} {{ participant.nom }}</td>
-</tr>
-    {% endfor %}
 
 {% endblock %}
 
