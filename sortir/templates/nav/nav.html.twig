@@ -43,7 +43,7 @@
             </a>
     </li>
         {% if is_granted ('ROLE_ADMIN') %}
-        <a class="nav-link" style="color: white" href="{{ path('app_register') }}">S'inscrire</a>
+        <a class="nav-link" style="color: white" href="{{ path('app_register') }}">Inscrire un utilisateur</a>
         </li>
         {% endif %}
         <a class="nav-link" style="color: white" href="{{ path('app_logout') }}">Déconnexion</a>
