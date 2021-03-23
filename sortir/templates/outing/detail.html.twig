@@ -64,8 +64,12 @@
         {% endif %}
         <tr align="center">
         <th scope="row" style="color: #00487f">Descriptions et infos :</th>
-            <td>{{ sortie.infosSortie }}</td>
-
+            {% if sortie.etat == "Annulé" %}
+                <td><strong>Sortie annulée.</strong><br>
+                    <u>Motif :</u> {{ sortie.infosSortie }}</td>
+            {% else %}
+                <td>{{ sortie.infosSortie }}</td>
+            {% endif %}
         </tr>
 
         </tbody>
