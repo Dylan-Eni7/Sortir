@@ -1,12 +1,13 @@
-
+{% extends 'base.html.twig' %}
+{% block title %}Organiser une sortie{% endblock %}
 {% block body %}
-{% include ('base.html.twig') %}
 
-<div style="margin-left: 20px; margin-right: 20px;">
 
-    {% extends 'base.html.twig' %}
-    {% block title %}Organiser une sortie{% endblock %}
-    {% block body %}
+<div style="margin-left: 20px; margin-right: 20px; margin-top: 20px">
+
+
+
+
 
 
     <h1>Que voulez-vous faire ?</h1>
@@ -48,6 +49,6 @@
 
     {{ form_end(sortieFormView) }}
 
-    <button class="btn btn-mi" style="background-color:  #bf1209; color: white" onclick="window.location.href='http://localhost:8080/outing/'">Annuler</button>
+    <button class="btn btn-mi" style="background-color:  #bf1209; color: white; margin-top: 5px" onclick="window.location.href='http://localhost:8080/outing/'">Annuler</button>
     </div>
 {% endblock %}
