@@ -32,15 +32,14 @@ class UserController extends AbstractController
 
             $hashed = $passwordEncoder->encodePassword($user, $user->getPassword());
             $user->setPassword($hashed);
-            if ($user->setPassword() == null) {
-                $user->getPassword();
-            }
+
             $entityManager->persist($user);
             $entityManager->flush();
-
+            $this->addFlash('success', '✔ Profil modifié ! ');
             return $this->redirectToRoute("user_edit", ["id" => $user->getId()]);
 
         }
+
         return $this->render('participant/edit.html.twig', [
             'profilFormView' => $profilform->createView(),
             'user' => $user
