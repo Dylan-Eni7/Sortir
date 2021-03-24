@@ -57,8 +57,12 @@ class SortieType extends AbstractType
                 'choice_label' => 'nom',
             ])
 
-            ->add('Enregistrer', SubmitType::class)
-            ->add('Publier', SubmitType::class)
+            ->add('Enregistrer', SubmitType::class, [
+                'attr' => ['style' => 'background-color : #00487f; border-color : #00487f; color : white;']
+            ])
+            ->add('Publier', SubmitType::class, [
+                'attr' => ['style' => 'background-color : #00487f; border-color : #00487f; color : white;']
+            ])
         ;
     }
 

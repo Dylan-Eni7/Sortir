@@ -15,7 +15,9 @@ class SiteType extends AbstractType
     {
         $builder
             ->add('nom', TextType::class)
-            ->add('Enregistrer', SubmitType::class)
+            ->add('Enregistrer', SubmitType::class, [
+                'attr' => ['style' => 'background-color : #00487f; border-color : #00487f; color : white;']
+            ])
         ;
     }
 

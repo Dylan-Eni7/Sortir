@@ -76,7 +76,11 @@
         {% endfor %}
         </tbody>
     </table>
-    <a class="btn btn-mi" style="background-color: #00487f; color: white; margin-left: 90px" href="{{ path('outing_new') }}">Créer une sortie</a>
+
+    <div class="flex2"><a class="btn btn-mi" style="background-color: #00487f; color: white; margin-left: 90px;" href="{{ path('outing_new') }}">Créer une sortie</a>
+        <h6 align="right" style="margin-left: 795px; margin-bottom: 20px">Personne inscrite : ✔</h6></div>
+    <h6  align="right" style="margin-right: 100px">Personne non inscrite : ❌</h6>
+
 
 {% endblock %}
 

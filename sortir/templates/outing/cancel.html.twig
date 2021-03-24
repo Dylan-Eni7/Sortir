@@ -11,24 +11,24 @@
         </thead>
         <tbody>
         <tr align="center">
-            <td>Nom de la sortie : </td><td>{{ sortie.nom }}</td>
+            <th style="color: #00487f">Nom de la sortie : </th><td>{{ sortie.nom }}</td>
         </tr>
         <tr align="center">
-            <td>Date de la sortie : </td><td>{{ sortie.dateHeureDebut|date('Y-m-d h:i') }}</td>
+            <th style="color: #00487f">Date de la sortie : </th><td>{{ sortie.dateHeureDebut|date('Y-m-d h:i') }}</td>
         </tr>
         <tr align="center">
-            <td>Ville organisatrice : </td><td>{{ site.nom }}</td>
+            <th style="color: #00487f">Ville organisatrice : </th><td>{{ site.nom }}</td>
         </tr>
         <tr align="center">
-            <td>Lieu : </td><td>{{ lieu.nom }} {{ lieu.rue }} {{ ville.codePostal }} {{ ville.nom }}</td>
+            <th style="color: #00487f">Lieu : </th><td>{{ lieu.nom }} {{ lieu.rue }} {{ ville.codePostal }} {{ ville.nom }}</td>
         </tr>
         <tr align="center">
-            <td>Motif : </td><td><textarea name="motif" rows="2" cols="40" wrap="soft"> </textarea></td>
+            <th style="color: #00487f" valign="middle">Motif : </th><td><textarea class="form-control form-control-mi " rows="2" cols="40" name="motif"></textarea></td>
         </tr>
         </tbody>
     </table>
-    <input class="btn btn-mi" style="margin-left: 45%; background-color: lightskyblue" onchange="ecriture()" type="submit" value="Enregistrer">
-    <a class="btn btn-mi" style="background-color: lightcoral" href="{{ path('outing_list') }}">Annuler</a>
+    <input class="btn btn-mi" style="margin-left: 45%; background-color: #00487f; color: white" onchange="ecriture()" type="submit" value="Enregistrer">
+    <a class="btn btn-mi" style="background-color: #bf1209; color: white" href="{{ path('outing_list') }}">Annuler</a>
 </form>
 
 {% endblock %}
