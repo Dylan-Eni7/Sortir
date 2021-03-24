@@ -17,8 +17,8 @@
                 <tr>
                     <th style="width: 200px">
                         {% if site.id == app.request.get('id') %}
-                            <input type="hidden" name="id" value="{{ site.id }}">
-                            <input type="text" name="nomSite" value="{{ site.nom }}" onkeyup="this.value = this.value.toUpperCase()">
+                            <input class="form-control-sm" type="hidden" name="id" value="{{ site.id }}">
+                            <input class="form-control-sm" type="text" name="nomSite" value="{{ site.nom }}" onkeyup="this.value = this.value.toUpperCase()">
                             <th><input class="btn btn-sm" style="background-color: #00487f; color: white" type="submit" value="Valider"></th>
                         {% else %}
                             {{ site.nom }}

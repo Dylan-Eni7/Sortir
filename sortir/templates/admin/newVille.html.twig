@@ -17,9 +17,9 @@
             {% for ville in villes %}
                 <tr>
                     {% if ville.id == app.request.get('id') %}
-                        <input type="hidden" name="id" value="{{ ville.id }}">
-                        <th style="width: 200px"><input type="text" name="nomVille" value="{{ ville.nom }}"></th>
-                        <th style="width: 200px" ><input type="number" name="codePostal" value="{{ ville.codePostal }}"></th>
+                        <input  type="hidden" name="id" value="{{ ville.id }}">
+                        <th style="width: 200px"><input class="form-control-sm" type="text" name="nomVille" value="{{ ville.nom }}"></th>
+                        <th style="width: 200px" ><input class="form-control-sm" type="number" name="codePostal" value="{{ ville.codePostal }}"></th>
                         <th><input class="btn btn-sm" style="background-color: #00487f; color: white" type="submit" value="Valider"></th>
                     {% else %}
                         <th>{{ ville.nom }}</th>

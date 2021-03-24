@@ -64,6 +64,24 @@ class ProfilType extends AbstractType
 
             ])
 
+//            ->add('photo', FileType::class, [
+//                'label' => 'Photo Image file (jpg, jpeg, png, gif)',
+//                'mapped' => false,
+//                'required' => false,
+//                'constraints' => [
+//                    new File([
+//                        'maxSize' => '4096k',
+//                        'mimeTypes' => [
+//                            'image/jpeg',
+//                            'image/jpg',
+//                            'image/png',
+//                            'image/gif',
+//                            // jpg, jpeg, png, gif
+//                        ],
+//                        'mimeTypesMessage' => 'Please upload a valid vignette Media file',
+//                    ])
+//                ],
+//            ])
             ->add('Enregistrer', SubmitType::class, [
                 'attr' => ['style' => 'background-color : #00487f; border-color : #00487f; color : white;']
             ]);}
