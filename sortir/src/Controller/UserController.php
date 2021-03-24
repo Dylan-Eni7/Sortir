@@ -18,6 +18,7 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
  */
 class UserController extends AbstractController
 {
+    //gestion du formulaire de modification d'utilisateur
     /**
      * @Route("/edit", name="edit")
      */
@@ -25,25 +26,23 @@ class UserController extends AbstractController
                          UserPasswordEncoderInterface $passwordEncoder,
                          EntityManagerInterface $entityManager): Response
     {
+        //récuperation de l'utilisateur
         $user = $this->getUser();
+        //création du formulaire de modification
         $profilform = $this->createForm(ProfilType::class, $user);
         $profilform->handleRequest($request);
+        //si profilfrom est validé et valide
         if ($profilform->isSubmitted() && $profilform->isValid()) {
             //hashage du password
-
-//                $hashed = $passwordEncoder->encodePassword($user, $user->getPassword());
-//                $user->setPassword($hashed);
-//                $entityManager->persist($user);
-//                $entityManager->flush();
-
                 $user->setPassword(
                         $passwordEncoder->encodePassword(
                         $user,
                         $profilform->get('password')->getData()
                     )
                 );
-
+            //puis envoie du password hashé et les informations de l'utilisateur en BDD
             $entityManager->flush($user);
+
             $this->addFlash('success', '✔ Profil modifié ! ');
             return $this->redirectToRoute("user_profile", [
 
@@ -58,16 +57,17 @@ class UserController extends AbstractController
     }
 
 
-
+    //gestion du profil des autres participants
     /**
      * @Route ("/profile/{id}", name="profile")
      */
     public function profile($id, EntityManagerInterface $entityManager): Response
 
     {
-
+        //recherche un utilisateur en fonction de son id
         $user = $entityManager->find(Participant::class, $id);
         if ($user == null) {
+            //si null, renvoie un message d'erreur
             throw $this->createNotFoundException("L'utilisateur est absent dans la base de données. Essayez un autre ID !");
         }
 

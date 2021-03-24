@@ -14,8 +14,8 @@ security:
         # used to reload user from session & other features (e.g. switch_user)
         app_user_provider:
             entity:
-                class: App\Entity\Participant
-                property: username
+                class: 'App\Entity\Participant'
+                property: 'username'
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
@@ -45,6 +45,6 @@ security:
     # Note: Only the *first* access control that matches will be used
     access_control:
          - { path: ^/outing, roles: ROLE_USER }
-         - { path: ^/outing/new, roles: ROLE_ADMIN }
+         # - { path: ^/outing/new, roles: ROLE_ADMIN }
          - { path: ^/admin/create/site, roles: ROLE_ADMIN }
          - { path: ^/admin/create/ville, roles: ROLE_ADMIN }
