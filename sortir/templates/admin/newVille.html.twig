@@ -20,7 +20,7 @@
                         <input type="hidden" name="id" value="{{ ville.id }}">
                         <th style="width: 200px"><input type="text" name="nomVille" value="{{ ville.nom }}"></th>
                         <th style="width: 200px" ><input type="number" name="codePostal" value="{{ ville.codePostal }}"></th>
-                        <th><input type="submit" value="Valider"></th>
+                        <th><input class="btn btn-sm" style="background-color: #00487f; color: white" type="submit" value="Valider"></th>
                     {% else %}
                         <th>{{ ville.nom }}</th>
                         <th>{{ ville.codePostal }}</th>
@@ -41,10 +41,15 @@
     {{ form_widget(villeFormView.nom) }}
     {{ form_errors(villeFormView.nom) }}
 
+    {{ form_label(villeFormView.CodePostal) }}
+    {{ form_widget(villeFormView.CodePostal) }}
+    {{ form_errors(villeFormView.CodePostal) }}
+
+
     {{ form_end(villeFormView) }}
 
 </div>
-    <button class="btn btn-mi" style="background-color: #bf1209; color: white; margin-left: 20px"
+    <button class="btn btn-mi" style="background-color: #bf1209; color: white; margin-left: 20px; margin-top: 5px"
             onclick="window.location.href='http://localhost:8080/outing/'">Annuler
     </button>
 {% endblock %}
