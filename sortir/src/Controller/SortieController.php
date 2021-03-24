@@ -34,6 +34,7 @@ class SortieController extends AbstractController
         $sorties = $sortieRepository->findAll();
 
         $date = new \DateTime('now');
+
         $participant = $this->getUser();
 
 

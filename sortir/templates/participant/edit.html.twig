@@ -13,31 +13,36 @@
         {{ form_errors(profilFormView) }}
 
         {{ form_label(profilFormView.nom) }}
-        {{ form_widget(profilFormView.nom, {'value' : app.user.nom }) }}
+        {{ form_widget(profilFormView.nom) }}
         {{ form_errors(profilFormView.nom) }}
 
         {{ form_label(profilFormView.prenom) }}
-        {{ form_widget(profilFormView.prenom, {'value' : app.user.prenom }) }}
+        {{ form_widget(profilFormView.prenom) }}
         {{ form_errors(profilFormView.prenom) }}
 
         {{ form_label(profilFormView.username) }}
-        {{ form_widget(profilFormView.username, {'value' : app.user.username }) }}
+        {{ form_widget(profilFormView.username) }}
         {{ form_errors(profilFormView.username) }}
 
         {{ form_label(profilFormView.mail) }}
-        {{ form_widget(profilFormView.mail, {'value' : app.user.mail }) }}
+        {{ form_widget(profilFormView.mail) }}
         {{ form_errors(profilFormView.mail) }}
 
         {{ form_label(profilFormView.telephone) }}
-        {{ form_widget(profilFormView.telephone, {'value' : app.user.telephone }) }}
+        {{ form_widget(profilFormView.telephone) }}
         {{ form_errors(profilFormView.telephone) }}
 
         {{ form_label(profilFormView.site) }}
-        {{ form_widget(profilFormView.site, {'value' : app.user.site.nom }) }}
+        {{ form_widget(profilFormView.site) }}
         {{ form_errors(profilFormView.site) }}
 
-        {{ form_widget(profilFormView.password) }}
-        {{ form_errors(profilFormView.password) }}
+        {{ form_label(profilFormView.password.first) }}
+        {{ form_widget(profilFormView.password.first) }}
+        {{ form_errors(profilFormView.password.first) }}
+
+        {{ form_label(profilFormView.password.second) }}
+        {{ form_widget(profilFormView.password.second) }}
+        {{ form_errors(profilFormView.password.second) }}
 
         {{ form_end(profilFormView) }}
         <a class="btn btn-mi" style="background-color: #bf1209; color: white;" href="{{ path('outing_list') }}">Annuler</a>

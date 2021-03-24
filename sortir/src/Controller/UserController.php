@@ -19,24 +19,35 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 class UserController extends AbstractController
 {
     /**
-     * @Route("/edit/{id}", name="edit")
+     * @Route("/edit", name="edit")
      */
-    public function edit($id, EntityManagerInterface $entityManager,
-                         Request $request,
-                         UserPasswordEncoderInterface $passwordEncoder): Response
+    public function edit(Request $request,
+                         UserPasswordEncoderInterface $passwordEncoder,
+                         EntityManagerInterface $entityManager): Response
     {
-        $user = $entityManager->getRepository(Participant::class)->find($this->getUser()->getId());
+        $user = $this->getUser();
         $profilform = $this->createForm(ProfilType::class, $user);
         $profilform->handleRequest($request);
         if ($profilform->isSubmitted() && $profilform->isValid()) {
+            //hashage du password
 
-            $hashed = $passwordEncoder->encodePassword($user, $user->getPassword());
-            $user->setPassword($hashed);
+//                $hashed = $passwordEncoder->encodePassword($user, $user->getPassword());
+//                $user->setPassword($hashed);
+//                $entityManager->persist($user);
+//                $entityManager->flush();
 
-            $entityManager->persist($user);
-            $entityManager->flush();
+                $user->setPassword(
+                        $passwordEncoder->encodePassword(
+                        $user,
+                        $profilform->get('password')->getData()
+                    )
+                );
+
+            $entityManager->flush($user);
             $this->addFlash('success', '✔ Profil modifié ! ');
-            return $this->redirectToRoute("user_edit", ["id" => $user->getId()]);
+            return $this->redirectToRoute("user_profile", [
+
+            ]);
 
         }
 
@@ -45,6 +56,8 @@ class UserController extends AbstractController
             'user' => $user
         ]);
     }
+
+
 
     /**
      * @Route ("/profile/{id}", name="profile")
