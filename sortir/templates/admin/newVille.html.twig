@@ -26,7 +26,7 @@
                         <th>{{ ville.codePostal }}</th>
                         <th><a href="{{ path('admin_create_ville', {id: ville.id}) }}">Modifier</a></th>
                     {% endif %}
-                    <th> - <a href="{{ path('admin_delete_ville', {id: ville.id}) }}">Supprimer</a></th>
+                    <th> - <a href="{{ path('admin_delete_ville', {id: ville.id}) }}" style="color: #bf1209">Supprimer</a></th>
                 </tr>
             {% endfor %}
 
