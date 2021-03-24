@@ -59,7 +59,7 @@ class SortieController extends AbstractController
     ): Response
     {
         //Si je ne suis pas Admin, je refuse l'acces à la page.
-        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+       // $this->denyAccessUnlessGranted('ROLE_ADMIN');
 
         //Je crée une nouvelle sortie.
         $sortie = new Sortie();
