@@ -29,11 +29,10 @@
 {#        Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.#}
 {#        See https://symfony.com/doc/current/security/remember_me.html#}
 
-        <div class="checkbox mb-3">
-            <label>
-                <input type="checkbox" name="_remember_me"> Se souvenir de moi
-            </label>
-        </div>
+    <div class="form-check">
+        <input type="checkbox" class="form-check-input" id="_remember_me" checked>
+        <label class="form-check-label" for="remember_me">Se souvenir de moi</label>
+    </div>
 
 
     <button class="btn btn-lg" style="background-color: #00487f; color: #e0e0e0" type="submit">

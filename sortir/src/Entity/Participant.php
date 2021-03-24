@@ -8,7 +8,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
-
+use Symfony\Component\Validator\Constraints as Assert;
 
 
 /**
@@ -26,7 +26,9 @@ class Participant implements UserInterface
 
     /**
      * @var string
-     *
+     * @Assert\NotBlank(message="Merci de préciser un nom d'utilisateur")
+     * @Assert\Length(min="5",
+     *     minMessage="Nom d'utilisateur trop court")
      * @ORM\Column(type="string", length=180, unique=true)
      */
     private $username;
@@ -38,27 +40,44 @@ class Participant implements UserInterface
 
     /**
      * @var string The hashed password
+     *
      * @ORM\Column(type="string")
      */
     private $password;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @Assert\Regex(
+     *     pattern="/\d/",
+     *     match=false,
+     *     message="Votre nom ne peut pas contenir de numéro"
+     * )
+     * @ORM\Column(length=255)
      */
     private $nom;
 
     /**
+     * @Assert\Regex(
+     *     pattern="/\d/",
+     *     match=false,
+     *     message="Votre nom ne peut pas contenir de numéro"
+     * )
      * @ORM\Column(type="string", length=255)
      */
     private $prenom;
 
     /**
+     * @Assert\Length(
+     *     min=10,
+     *     max=10,
+     *     maxMessage="Il faut '{{max}}' chiffres")
      * @ORM\Column(type="string", length=10)
      */
     private $telephone;
 
     /**
      * @var string
+     * @Assert\Email(
+     *     message = "The email '{{ value }}' is not a valid email.")
      * @ORM\Column(type="string", length=255)
      */
     private $mail;
@@ -135,13 +154,15 @@ class Participant implements UserInterface
 
     /**
      * @see UserInterface
+     *
      */
-    public function getPassword(): string
+    public function getPassword(): ?string
     {
-        return $this->password;
+        return (string)$this->password;
     }
 
-    public function setPassword(string $password): self
+
+    public function setPassword($password): self
     {
         $this->password = $password;
 
