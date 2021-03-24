@@ -57,9 +57,13 @@
                         {% if sortie.etat == "En création" %}
                             <a href="{{ path('outing_modify', {id: sortie.id}) }}">Modifier</a>
                             -
-                            <a href="{{ path('outing_publish', {id: sortie.id}) }}" class="publi">Publier</a>
+                            <a href="{{ path('outing_publish', {id: sortie.id}) }}"
+                               onclick="return confirm('Voulez vous vraiment Publier la sortie ?')"
+                               class="publi">Publier</a>
                             -
-                            <a href="{{ path('outing_delete', {id: sortie.id}) }}" class="warning">Supprimer</a>
+                            <a href="{{ path('outing_delete', {id: sortie.id}) }}"
+                               onclick="return confirm('Voulez vous vraiment supprimer la sortie ?')"
+                               class="warning">Supprimer</a>
                         {% else %}
                             <a href="{{ path('outing_detail', {id: sortie.id}) }}">Afficher</a>
                             {% if sortie.etat == "Ouvert" %}
