@@ -32,9 +32,15 @@
         {{ form_widget(profilFormView.telephone) }}
         {{ form_errors(profilFormView.telephone) }}
 
-        {{ form_label(profilFormView.site) }}
-        {{ form_widget(profilFormView.site) }}
-        {{ form_errors(profilFormView.site) }}
+        {% if is_granted('ROLE_ADMIN') %}
+            {{ form_label(profilFormView.site) }}
+            {{ form_widget(profilFormView.site) }}
+            {{ form_errors(profilFormView.site) }}
+        {% else %}
+            {{ form_label(profilFormView.site) }}
+            {{ form_widget(profilFormView.site, { 'attr': {disabled: 'disabled'}}) }}
+            {{ form_errors(profilFormView.site) }}
+        {% endif %}
 
         {{ form_label(profilFormView.password.first) }}
         {{ form_widget(profilFormView.password.first) }}

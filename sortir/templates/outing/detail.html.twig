@@ -12,7 +12,7 @@
     <tbody>
         <thead>
         <tr align="center">
-            <th scope="row" style="color: #00487f">Nom de la sortie :</th>
+            <th width="300px" scope="row" style="color: #00487f">Nom de la sortie :</th>
             <td>{{ sortie.nom }}</td>
         </tr>
         <tr align="center">
@@ -25,11 +25,11 @@
         </tr>
         <tr align="center">
             <th scope="row" style="color: #00487f">Date et heure de la sortie :</th>
-            <td>{{ sortie.dateHeureDebut|date('Y/m/d h:m') }}</td>
+            <td>{{ sortie.dateHeureDebut|date('Y/m/d H:i') }}</td>
         </tr>
         <tr align="center">
             <th scope="row" style="color: #00487f">Date limite d'inscription :</th>
-            <td>{{ sortie.dateLimiteInscription|date('Y/m/d h:m') }}</td>
+            <td>{{ sortie.dateLimiteInscription|date('Y/m/d H:i') }}</td>
         </tr>
         <tr align="center">
             <th scope="row" style="color: #00487f">Lieu :</th>
@@ -63,7 +63,7 @@
         </tr>
         {% endif %}
         <tr align="center">
-        <th scope="row" style="color: #00487f">Descriptions et infos :</th>
+        <th scope="row" valign="middle" style="color: #00487f">Descriptions et infos :</th>
             {% if sortie.etat == "Annulé" %}
                 <td><strong>Sortie annulée.</strong><br>
                     <u>Motif :</u> {{ sortie.infosSortie }}</td>

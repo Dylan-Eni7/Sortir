@@ -43,15 +43,6 @@ class SortieType extends AbstractType
                  'expanded' => true,
             ])
 
-//            ->add('ville', EntityType::class, [
-//                'label' => "Ville : ",
-//                // looks for choices from this entity
-//                'class' => Ville::class,
-//
-//                // uses the User.username property as the visible option string
-//                'choice_label' => 'nom',
-//            ])
-
             ->add('lieu', EntityType::class, [
                 'class' => Lieu::class,
                 'choice_label' => 'nom',
