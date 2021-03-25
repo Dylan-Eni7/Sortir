@@ -3,9 +3,11 @@
 namespace App\Controller;
 
 use App\Entity\Lieu;
+use App\Entity\Participant;
 use App\Entity\Site;
 use App\Entity\Sortie;
 use App\Entity\Ville;
+use App\Form\FilterType;
 use App\Form\SortieType;
 use App\Repository\LieuRepository;
 use App\Repository\SiteRepository;
@@ -25,7 +27,7 @@ class SortieController extends AbstractController
     /**
      * @Route("/", name="list")
      */
-    public function list(EntityManagerInterface $entityManager): Response
+    public function list(EntityManagerInterface $entityManager, Request $request, SortieRepository $sortieRepository): Response
     {
         /** @var SortieRepository $sortieRepository */
 
@@ -37,15 +39,46 @@ class SortieController extends AbstractController
 
         $participant = $this->getUser();
 
+//        ---------------------------------------------------------------------------------
+        $sortiesListe = null;
+        $filterForm = $this->createForm(FilterType::class, null);
 
+        $filterForm->handleRequest($request);
+        $inscrit = null;
+        $pasInscrit = null;
+        if ($filterForm->isSubmitted() && $filterForm->isValid()) {
+
+            $site = $filterForm['site']->getData();
+
+            $dateHeureDebut = $filterForm['dateHeureDebut']->getData();
+            $dateHeureFin = $filterForm['dateHeureFin']->getData();
+
+            $organisateur = $filterForm['organisateur']->getData();
+
+            $inscrit = $filterForm['inscrit']->getData();
+            $pasInscrit = $filterForm['pasInscrit']->getData();
+            $passed = $filterForm['passed']->getData();
+            $participant = $entityManager->getRepository(Participant::class)->find($this->getUser()->getId());
+            $this->sortiesListe = $sortieRepository->findAll();
+//            $this->sortiesListe = $sortieRepository->findAll($participant, $lieu,$organisateur , $start, $close, $passed);
+        }else{
+            $this->sortiesListe = $entityManager->getRepository(Sortie::class)->findAll();
+        }
+
+//        ---------------------------------------------------------------------------------
 
         //J'envoie mon tableau de Sorties sur la page twig
 
         return $this->render('outing/index.html.twig',
             [
-                'sorties' => $sorties,
-                'date' => $date,
-                'participant' => $participant
+                'sorties'       => $sorties,
+                'date'          => $date,
+                'participant'   => $participant,
+                'pasInscrit'    => $pasInscrit,
+                'inscrit'       => $inscrit,
+                'app_name'      => 'Evenements',
+                'FilterFormView' => $filterForm->createView(),
+                'sorties'       => $this->sortiesListe,
             ]
         );
     }
@@ -322,5 +355,4 @@ class SortieController extends AbstractController
 
         return $this->redirectToRoute("outing_list");
     }
-
 }
