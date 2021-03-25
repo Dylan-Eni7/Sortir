@@ -44,7 +44,7 @@ class UserController extends AbstractController
             $entityManager->flush($user);
 
             $this->addFlash('success', '✔ Profil modifié ! ');
-            return $this->redirectToRoute("user_profile", [
+            return $this->redirectToRoute("user_edit", [
 
             ]);
 
