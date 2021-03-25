@@ -6,10 +6,16 @@
 .warning:hover{
     color: red;
 }
-#scroll table{
+#scroll table {
 
     height: auto;
     display: block;
+}
+.position{
+    position: absolute;
+    bottom:500px;
+    left: 350px;
+
 }
 #scroll thead{
     display: block;

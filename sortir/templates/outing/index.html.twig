@@ -4,9 +4,54 @@
 
     <link href="{{ asset('css/CSS.css') }}" rel="stylesheet">
     <h2 align="center" style="color: #00487f; padding-top: 20px;">Voici nos sorties</h2><br>
-    <h6 align="right" style="margin-right: 180px">Date du jour : {{ date|date('d/m/Y') }}</h6>
-    <h6 align="right" style="margin-right: 180px">Participant : {{ participant.username }}</h6>
 
+
+        <h3>Filtrer les sorties</h3>
+
+        <h6 align="right" style="margin-right: 180px">Date du jour : {{ date|date('d/m/Y') }}</h6>
+        <h6 align="right" style="margin-right: 180px">Participant : {{ participant.username }}</h6>
+    <div style="width: 300px; margin-left: 20px ">
+        <table>
+       {{ form_start(FilterFormView) }}
+
+        {{ form_errors(FilterFormView) }}
+
+    {{ form_row(FilterFormView.site) }}
+
+        {{ form_row(FilterFormView.dateHeureDebut) }}
+
+        {{ form_row(FilterFormView.dateHeureFin) }}
+        </table>
+
+
+    <table class="position">
+        <tr>
+            <td>
+        {{ form_row(FilterFormView.pasInscrit) }}
+            </td>
+        </tr>
+        <tr>
+            <td>
+            {{ form_row(FilterFormView.passed) }}
+            </td>
+        </tr>
+        <tr>
+            <td>
+            {{ form_row(FilterFormView.inscrit) }}
+            </td>
+        </tr>
+        <tr>
+            <td>
+            {{ form_row(FilterFormView.organisateur) }}
+            </td>
+        </tr>
+
+                    </table>
+        {{ form_row(FilterFormView.submit) }}
+
+        {{ form_end(FilterFormView) }}
+
+    </div>
     <table  id="scroll" class="table table-bordered" style="width: 1100px; margin-top: 40px; margin-right: 20px" align="center" >
         <thead>
         <tr align="center">
@@ -20,9 +65,11 @@
             <th scope="col" style="color: #00487f; width: 245px" valign="middle">Actions</th>
         </tr>
         </thead>
+
         <tbody>
         {% for sortie in sorties %}
             <tr>
+
                 <td style="width: 100px">{{ sortie.nom }}</td>
                 <td style="width: 20px">{{ sortie.dateHeureDebut|date('Y/m/d H:i') }}</td>
                 <td style="width: 20px" >{{ sortie.dateLimiteInscription|date('Y/m/d H:i') }}</td>
@@ -83,14 +130,18 @@
     </table>
     </div>
 <body>
-    <div class="flex2"><a class="btn btn-mi" style="background-color: #00487f; color: white; margin-left: 160px;" href="{{ path('outing_new') }}">Créer une sortie</a>
-        <h6 align="right" style="margin-left: 650px; margin-bottom: 20px">Personne inscrite : ✔</h6></div>
+    <div class="flex2"><a class="btn btn-mi" style="background-color: #00487f; color: white; margin-left: 140px;" href="{{ path('outing_new') }}">Créer une sortie</a>
+        <h6 align="right" style="margin-left: 655px; margin-bottom: 20px">Personne inscrite : ✔</h6></div>
     <h6  align="right" style="margin-right: 170px">Personne non inscrite : ❌</h6>
 
     </body>
+
     <footer>
         <img  id="footer"  src="/images/sortir.png" style=" margin-left: 80px; width: 1100px; margin-bottom: auto;" alt="">
     </footer>
+
+
+
 
 {% endblock %}
 
