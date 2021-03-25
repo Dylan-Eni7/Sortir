@@ -52,16 +52,17 @@
         {{ form_end(FilterFormView) }}
 
     </div>
-    <table  id="scroll" class="table table-bordered" style="width: 1100px; margin-top: 40px; margin-right: 20px" align="center" >
+    <table  id="scroll" class="table table-bordered"  style="width: 1100px; margin-top: 40px; margin-right: 20px;" align="center" >
+
         <thead>
         <tr align="center">
             <th scope="col" style="color: #00487f;width: 100px;" valign="middle">Nom de la sortie</th>
             <th scope="col" style="color: #00487f; width: 100px" valign="middle">Date de la sortie</th>
             <th scope="col" style="color: #00487f;width: 98px" valign="middle">Clôture</th>
-            <th scope="col" style="color: #00487f;" valign="middle">Inscrits/places</th>
+            <th scope="col" style="color: #00487f; width: 125px" valign="middle">Inscrits/places</th>
             <th scope="col" style="color: #00487f;width: 96px" valign="middle" align="center" >Etat</th>
-            <th scope="col" style="color: #00487f" valign="middle">Inscrit</th>
-            <th scope="col" style="color: #00487f" valign="middle">Organisateur</th>
+            <th scope="col" style="color: #00487f; width: 64px" valign="middle">Inscrit</th>
+            <th scope="col" style="color: #00487f; width: 115px" valign="middle">Organisateur</th>
             <th scope="col" style="color: #00487f; width: 245px" valign="middle">Actions</th>
         </tr>
         </thead>
@@ -70,12 +71,12 @@
         {% for sortie in sorties %}
             <tr>
 
-                <td style="width: 100px">{{ sortie.nom }}</td>
-                <td style="width: 20px">{{ sortie.dateHeureDebut|date('Y/m/d H:i') }}</td>
-                <td style="width: 20px" >{{ sortie.dateLimiteInscription|date('Y/m/d H:i') }}</td>
-                <td align="center" style="width: 125px">{{ sortie.participant|length }} / {{ sortie.nbInscriptionsMax }}</td>
-                <td>{{ sortie.etat }}</td>
-                <td align="center" style="width: 64px">
+                <td style="width: 100px" valign="middle" align="center">{{ sortie.nom }}</td>
+                <td style="width: 100px" valign="middle">{{ sortie.dateHeureDebut|date('Y/m/d H:i') }}</td>
+                <td style="width: 98px" valign="middle" >{{ sortie.dateLimiteInscription|date('Y/m/d H:i') }}</td>
+                <td align="center" style="width: 125px" valign="middle">{{ sortie.participant|length }} / {{ sortie.nbInscriptionsMax }}</td>
+                <td valign="middle" style="width: 96px">{{ sortie.etat }}</td>
+                <td align="center" style="width: 64px" valign="middle">
 
 
                     {% set jeSuisInscrit = false %}
@@ -91,10 +92,10 @@
                         ❌
                     {% endif %}
                 </td>
-                <td align="center" style="width: 115px" >
+                <td align="center" style="width: 115px" valign="middle" >
                     <a href="{{ path('user_profile', { 'id': sortie.organisateur.id}) }}">{{ sortie.organisateur.username }}</a>
                 </td>
-                <td>
+                <td valign="middle" style="width: 245px">
                     {% if jeSuisInscrit == false and sortie.etat == "Ouvert" and sortie.participant|length != sortie.nbInscriptionsMax %}
                         <a href="{{ path('participant_register', {id: sortie.id}) }}">S'inscrire</a> -
                     {% elseif jeSuisInscrit == true %}
