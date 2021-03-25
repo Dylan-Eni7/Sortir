@@ -76,8 +76,11 @@
         </tr>
         </tbody>
     </table>
-    <input style="margin-left: 420px" type="submit" name="button_1" value="Enregistrer">
-    <input type="submit" name="button_2" value="Publier la sortie">
+    <input type="submit" class="btn btn-mi" style="margin-left: 420px; background-color: #00487f; color: white" name="button_1" value="Enregistrer">
+    <input type="submit" class="btn btn-mi" style="background-color: #00487f; color: white" name="button_2"
+           onclick="return confirm('Voulez vous vraiment Publier la sortie ?\n\nil ne sera plus possible de la modifier par la suite.')"
+           value="Publier la sortie">
+    <a class="btn btn-mi" style="background-color: #bf1209; color: white" href="{{ path('outing_list') }}">Annuler</a>
 </form>
 
 
