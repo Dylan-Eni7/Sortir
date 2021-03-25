@@ -15,7 +15,7 @@
             <td><input  type="text" name="nomSortie" value="{{ sortie.nom }}"></td>
             <th style="color: #00487f" align="center">Ville organisatrice :</th>
             <td>
-                <select  name="villeOrganisatrice" id="ville-organisatrice"  >
+                <select  name="villeOrganisatrice" id="ville-organisatrice">
                     <option  value="{{ site.id }}">{{ site.nom }}</option>
                     {% for s in sites %}
                         {% if s.nom != site.nom %}
@@ -29,8 +29,8 @@
             <th style="color: #00487f">Date et heure de la sortie :</th>
             <td>
                 <input type="datetime-local" name="dateSortie" id="dateSortie"
-                       value="{{ sortie.dateHeureDebut|date('Y-m-d') }}T{{ sortie.dateHeureDebut|date('h:m') }}"
-                       min="{{ "now"|date('Y-m-d') }}T{{ "now"|date('h:m') }}"
+                       value="{{ sortie.dateHeureDebut|date('Y-m-d') }}T{{ sortie.dateHeureDebut|date('H:i') }}"
+                       min="{{ "now"|date('Y-m-d') }}T{{ "now"|date('H:i') }}"
                 >
             </td>
             <th style="color: #00487f">Lieu :</th>
@@ -50,9 +50,9 @@
             <th style="color: #00487f">Date limite d'inscription :</th>
             <td align="center">
                 <input type="datetime-local" name="dateLimite" id="dateLimite"
-                       value="{{ sortie.dateLimiteInscription|date('Y-m-d') }}T{{ sortie.dateLimiteInscription|date('h:m') }}"
-                       min="{{ "now"|date('Y-m-d') }}T{{ "now"|date('h:m') }}"
-                       max="{{ sortie.dateHeureDebut|date('Y-m-d') }}T{{ sortie.dateHeureDebut|date('h:m') }}"
+                       value="{{ sortie.dateLimiteInscription|date('Y-m-d') }}T{{ sortie.dateLimiteInscription|date('H:i') }}"
+                       min="{{ "now"|date('Y-m-d') }}T{{ "now"|date('H:i') }}"
+                       max="{{ sortie.dateHeureDebut|date('Y-m-d') }}T{{ sortie.dateHeureDebut|date('H:i') }}"
                 >
             </td>
             <th style="color: #00487f">Ville :</th>
