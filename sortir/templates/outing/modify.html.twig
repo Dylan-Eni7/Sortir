@@ -15,7 +15,7 @@
             <td><input  type="text" name="nomSortie" value="{{ sortie.nom }}"></td>
             <th style="color: #00487f" align="center">Ville organisatrice :</th>
             <td>
-                <select  name="villeOrganisatrice" id="ville-organisatrice"  >
+                <select  name="villeOrganisatrice" id="ville-organisatrice">
                     <option  value="{{ site.id }}">{{ site.nom }}</option>
                     {% for s in sites %}
                         {% if s.nom != site.nom %}
@@ -29,8 +29,8 @@
             <th style="color: #00487f">Date et heure de la sortie :</th>
             <td>
                 <input type="datetime-local" name="dateSortie" id="dateSortie"
-                       value="{{ sortie.dateHeureDebut|date('Y-m-d') }}T{{ sortie.dateHeureDebut|date('h:m') }}"
-                       min="{{ "now"|date('Y-m-d') }}T{{ "now"|date('h:m') }}"
+                       value="{{ sortie.dateHeureDebut|date('Y-m-d') }}T{{ sortie.dateHeureDebut|date('H:i') }}"
+                       min="{{ "now"|date('Y-m-d') }}T{{ "now"|date('H:i') }}"
                 >
             </td>
             <th style="color: #00487f">Lieu :</th>
@@ -50,9 +50,9 @@
             <th style="color: #00487f">Date limite d'inscription :</th>
             <td align="center">
                 <input type="datetime-local" name="dateLimite" id="dateLimite"
-                       value="{{ sortie.dateLimiteInscription|date('Y-m-d') }}T{{ sortie.dateLimiteInscription|date('h:m') }}"
-                       min="{{ "now"|date('Y-m-d') }}T{{ "now"|date('h:m') }}"
-                       max="{{ sortie.dateHeureDebut|date('Y-m-d') }}T{{ sortie.dateHeureDebut|date('h:m') }}"
+                       value="{{ sortie.dateLimiteInscription|date('Y-m-d') }}T{{ sortie.dateLimiteInscription|date('H:i') }}"
+                       min="{{ "now"|date('Y-m-d') }}T{{ "now"|date('H:i') }}"
+                       max="{{ sortie.dateHeureDebut|date('Y-m-d') }}T{{ sortie.dateHeureDebut|date('H:i') }}"
                 >
             </td>
             <th style="color: #00487f">Ville :</th>
@@ -76,8 +76,11 @@
         </tr>
         </tbody>
     </table>
-    <input style="margin-left: 420px" type="submit" name="button_1" value="Enregistrer">
-    <input type="submit" name="button_2" value="Publier la sortie">
+    <input type="submit" class="btn btn-mi" style="margin-left: 420px; background-color: #00487f; color: white" name="button_1" value="Enregistrer">
+    <input type="submit" class="btn btn-mi" style="background-color: #00487f; color: white" name="button_2"
+           onclick="return confirm('Voulez vous vraiment Publier la sortie ?\n\nil ne sera plus possible de la modifier par la suite.')"
+           value="Publier la sortie">
+    <a class="btn btn-mi" style="background-color: #bf1209; color: white" href="{{ path('outing_list') }}">Annuler</a>
 </form>
 
 
