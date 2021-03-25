@@ -18,9 +18,7 @@ class RegistrationController extends AbstractController
      * @Route("/register", name="app_register")
      */
     public function register(Request $request,
-                             UserPasswordEncoderInterface $passwordEncoder,
-                             GuardAuthenticatorHandler $guardHandler,
-                             LoginFormAuthenticator $authenticator): Response
+                             UserPasswordEncoderInterface $passwordEncoder): Response
     {
         //Je crée un nouveau Participant
         $user = new Participant();
@@ -39,19 +37,15 @@ class RegistrationController extends AbstractController
                 )
             );
 
-            //S'il y a Admin dans le mail, alors on attribut le ROLE_ADMIN
-            if (stripos($user->getMail(), 'Admin') !== false){
-                $user->setRoles(['ROLE_ADMIN']);
+            $tab = $request->get('registration_form');
+            $key = array_values($tab);
+            if ($key[5] == 1) {
+                $user->setRoles(['ROLE_USER', 'ROLE_ADMIN']);
             }
 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);
             $entityManager->flush();
-
-            return $guardHandler->authenticateUserAndHandleSuccess(
-                $user,
-                $request,
-                $authenticator, 'main');
 
             return $this->redirectToRoute('outing_list');
         }

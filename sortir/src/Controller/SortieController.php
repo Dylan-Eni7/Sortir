@@ -283,7 +283,7 @@ class SortieController extends AbstractController
         //Je sauvegarde en BDD.
         $entityManager->flush();
 
-        $this->addFlash('succes', "Modifications éffectuées");
+        $this->addFlash('success', "Modifications effectuées");
         return $this->redirectToRoute("outing_list");
     }
 
