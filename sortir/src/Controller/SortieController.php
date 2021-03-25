@@ -216,7 +216,6 @@ class SortieController extends AbstractController
 
         //Je récupère le Lieu en BDD selon le nom de rue envoyé dans l'URL.
         $lieuSortie = $lieuRepository->findOneBy(array('rue' => $_POST["lieuSortie"]));
-
         $dateLimite = $_POST["dateLimite"];
         $nbPlaces = $_POST["nbPlaces"];
         $duree = $_POST["duree"];
@@ -225,11 +224,11 @@ class SortieController extends AbstractController
         //Je vérifie le button appuyé dans le formulaire
         //Si le button_1 a été appuyé, j'assigne l'état "En création" à ma sortie.
         if (isset($_POST["button_1"])) {
-        $etat = "En création";
+            $etat = "En création";
         }
         //Si le button_2 a été appuyé, j'assigne l'état "Ouvert" à ma sortie.
         if (isset($_POST["button_2"])){
-        $etat = "Ouvert";
+            $etat = "Ouvert";
         }
 
         //Je récupère en BDD la sortie correspondante à l'id envoyé.
@@ -246,9 +245,26 @@ class SortieController extends AbstractController
         $sortie->setInfosSortie($description);
         $sortie->setEtat($etat);
 
+        $now = date('Y-m-d H:i:s');
+        $dtNow = new \DateTime($now);
+        $dtNow->modify('+ 1 hour');
+        $dtSortie = $sortie->getDateHeureDebut();
+        $dtInscription = $sortie->getDateLimiteInscription();
+
+        if ($dtInscription < $dtNow)
+        {
+            if ($dtSortie < $dtNow) {
+                $this->addFlash('warning', 'La date de sortie est inférieur à la date actuel');
+            }
+            $this->addFlash('warning', "La date de limite d'inscription est inférieur à la date actuel");
+
+            return $this->redirectToRoute("outing_modify", ['id' => $id]);
+        }
+
         //Je sauvegarde en BDD.
         $entityManager->flush();
 
+        $this->addFlash('succes', "Modifications éffectuées");
         return $this->redirectToRoute("outing_list");
     }
 
@@ -280,6 +296,23 @@ class SortieController extends AbstractController
     {
         //Je récupère la sortie en BDD selon l'id envoyé.
         $sortie = $entityManager->find(Sortie::class, $id);
+
+
+        $now = date('Y-m-d H:i:s');
+        $dtNow = new \DateTime($now);
+        $dtNow->modify('+ 1 hour');
+        $dtSortie = $sortie->getDateHeureDebut();
+        $dtInscription = $sortie->getDateLimiteInscription();
+
+        if ($dtInscription < $dtNow)
+        {
+            if ($dtSortie < $dtNow) {
+                $this->addFlash('warning', 'La date de sortie est inférieur à la date actuel');
+            }
+            $this->addFlash('warning', "La date de limite d'inscription est inférieur à la date actuel");
+
+            return $this->redirectToRoute("outing_list");
+        }
 
         //J'assigne l'état "Ouvert" à la sortie.
         $sortie->setEtat("Ouvert");
