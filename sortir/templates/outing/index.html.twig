@@ -84,33 +84,35 @@
     </table>
     <div>
 
-            <h3>Filtrer</h3>
+        <h3>Filtrer</h3>
+        {% if FilterFormView is defined and FilterFormView is not empty %}
 
-        {{ form_start(FilterFormView) }}
-        {{ form_errors(FilterFormView) }}
+            {{ form_start(FilterFormView) }}
+            {{ form_errors(FilterFormView) }}
 
-        {{ form_row(FilterFormView.site) }}
+            {{ form_row(FilterFormView.site) }}
 
-        {{ form_row(FilterFormView.dateHeureDebut) }}
+            {{ form_row(FilterFormView.dateHeureDebut) }}
 
-        {{ form_row(FilterFormView.dateHeureFin) }}
+            {{ form_row(FilterFormView.dateHeureFin) }}
 
-        {{ form_row(FilterFormView.organisateur) }}
+            {{ form_row(FilterFormView.organisateur) }}
 
-        {{ form_row(FilterFormView.inscrit) }}
+            {{ form_row(FilterFormView.inscrit) }}
 
-        {{ form_row(FilterFormView.pasInscrit) }}
+            {{ form_row(FilterFormView.pasInscrit) }}
 
-        {{ form_row(FilterFormView.passed) }}
+            {{ form_row(FilterFormView.passed) }}
 
-        {{ form_row(FilterFormView.submit) }}
+            {{ form_row(FilterFormView.submit) }}
 
-        {{ form_end(FilterFormView) }}
-
+            {{ form_end(FilterFormView) }}
+        {% endif %}
     </div>
-    <div class="flex2"><a class="btn btn-mi" style="background-color: #00487f; color: white; margin-left: 90px;" href="{{ path('outing_new') }}">Créer une sortie</a>
+    <div class="flex2"><a class="btn btn-mi" style="background-color: #00487f; color: white; margin-left: 90px;"
+                          href="{{ path('outing_new') }}">Créer une sortie</a>
         <h6 align="right" style="margin-left: 795px; margin-bottom: 20px">Personne inscrite : ✔</h6></div>
-    <h6  align="right" style="margin-right: 100px">Personne non inscrite : ❌</h6>
+    <h6 align="right" style="margin-right: 100px">Personne non inscrite : ❌</h6>
 
 
 {% endblock %}

@@ -31,38 +31,26 @@ class SortieController extends AbstractController
     {
         /** @var SortieRepository $sortieRepository */
 
-        //Je crée un tableau contenant toutes les sorties de la BDD
-        $sortieRepository = $entityManager->getRepository(Sortie::class);
-        $sorties = $sortieRepository->findAll();
-
         $date = new \DateTime('now');
 
         $participant = $this->getUser();
 
-//        ---------------------------------------------------------------------------------
-        $sortiesListe = null;
+//     ---------------------------------------------------------
         $filterForm = $this->createForm(FilterType::class, null);
 
         $filterForm->handleRequest($request);
-        $inscrit = null;
-        $pasInscrit = null;
         if ($filterForm->isSubmitted() && $filterForm->isValid()) {
-
+            //filtre par site
             $site = $filterForm['site']->getData();
-
-            $dateHeureDebut = $filterForm['dateHeureDebut']->getData();
-            $dateHeureFin = $filterForm['dateHeureFin']->getData();
-
+            //filtre si je suis organisteur
             $organisateur = $filterForm['organisateur']->getData();
 
-            $inscrit = $filterForm['inscrit']->getData();
-            $pasInscrit = $filterForm['pasInscrit']->getData();
-            $passed = $filterForm['passed']->getData();
             $participant = $entityManager->getRepository(Participant::class)->find($this->getUser()->getId());
-            $this->sortiesListe = $sortieRepository->findAll();
-//            $this->sortiesListe = $sortieRepository->findAll($participant, $lieu,$organisateur , $start, $close, $passed);
-        }else{
-            $this->sortiesListe = $entityManager->getRepository(Sortie::class)->findAll();
+            //Je crée un tableau contenant les sorties de la BDD en fonction de critère
+            $sorties = $sortieRepository->findAllFilter($participant, $site, $organisateur);
+        } else {
+            //Je crée un tableau contenant toutes les sorties de la BDD
+            $sorties = $entityManager->getRepository(Sortie::class)->findAll();
         }
 
 //        ---------------------------------------------------------------------------------
@@ -74,11 +62,8 @@ class SortieController extends AbstractController
                 'sorties'       => $sorties,
                 'date'          => $date,
                 'participant'   => $participant,
-                'pasInscrit'    => $pasInscrit,
-                'inscrit'       => $inscrit,
-                'app_name'      => 'Evenements',
-                'FilterFormView' => $filterForm->createView(),
-                'sorties'       => $this->sortiesListe,
+                'FilterFormView'=> $filterForm->createView(),
+
             ]
         );
     }
@@ -92,7 +77,7 @@ class SortieController extends AbstractController
     ): Response
     {
         //Si je ne suis pas Admin, je refuse l'acces à la page.
-       // $this->denyAccessUnlessGranted('ROLE_ADMIN');
+        // $this->denyAccessUnlessGranted('ROLE_ADMIN');
 
         //Je crée une nouvelle sortie.
         $sortie = new Sortie();
@@ -220,7 +205,7 @@ class SortieController extends AbstractController
         $ville = $lieu->getVille();
 
 
-        return $this->render('outing/modify.html.twig',[
+        return $this->render('outing/modify.html.twig', [
             'sortie' => $sortie,
 
             'site' => $site,
@@ -258,11 +243,11 @@ class SortieController extends AbstractController
         //Je vérifie le button appuyé dans le formulaire
         //Si le button_1 a été appuyé, j'assigne l'état "En création" à ma sortie.
         if (isset($_POST["button_1"])) {
-        $etat = "En création";
+            $etat = "En création";
         }
         //Si le button_2 a été appuyé, j'assigne l'état "Ouvert" à ma sortie.
-        if (isset($_POST["button_2"])){
-        $etat = "Ouvert";
+        if (isset($_POST["button_2"])) {
+            $etat = "Ouvert";
         }
 
         //Je récupère en BDD la sortie correspondante à l'id envoyé.
@@ -298,7 +283,7 @@ class SortieController extends AbstractController
         $lieu = $sortie->getLieu();
         $ville = $lieu->getVille();
 
-        return $this->render('outing/detail.html.twig',[
+        return $this->render('outing/detail.html.twig', [
             'sortie' => $sortie,
             'lieu' => $lieu,
             'site' => $site,

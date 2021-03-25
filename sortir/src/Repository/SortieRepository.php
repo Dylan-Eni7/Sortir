@@ -2,6 +2,8 @@
 
 namespace App\Repository;
 
+use App\Entity\Participant;
+use App\Entity\Site;
 use App\Entity\Sortie;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -32,4 +34,25 @@ class SortieRepository extends ServiceEntityRepository
         return $query->getResult();
     }
 
+    public function findAllFilter(
+        Participant $user,
+        Site $formSite = null,
+        bool $organisateur = false
+    )
+    {
+        $qb = $this->createQueryBuilder('s');
+
+        if ($formSite != null){
+            $qb ->andWhere('s.site = :site')
+                ->setParameter('site', $formSite->getId());
+        }
+
+        if ($organisateur){
+            $qb ->andWhere('s.organisateur = :organisateur')
+                ->setParameter('organisateur', $user->getId());
+        }
+
+        $qb = $qb->getQuery();
+        return $qb->execute();
+    }
 }
