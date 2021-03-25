@@ -4,30 +4,31 @@
 
     <link href="{{ asset('css/CSS.css') }}" rel="stylesheet">
     <h2 align="center" style="color: #00487f; padding-top: 20px;">Voici nos sorties</h2><br>
-    <h6 align="right" style="margin-right: 100px">Date du jour : {{ date|date('d/m/Y') }}</h6>
-    <h6 align="right" style="margin-right: 100px">Participant : {{ participant.username }}</h6>
-    <table class="table table-bordered" style="width: 1100px; margin-top: 40px" align="center">
+    <h6 align="right" style="margin-right: 180px">Date du jour : {{ date|date('d/m/Y') }}</h6>
+    <h6 align="right" style="margin-right: 180px">Participant : {{ participant.username }}</h6>
+
+    <table  id="scroll" class="table table-bordered" style="width: 1100px; margin-top: 40px; margin-right: 20px" align="center" >
         <thead>
-        <tr>
-            <th scope="col" style="color: #00487f;">Nom de la sortie</th>
-            <th scope="col" style="color: #00487f">Date de la sortie</th>
-            <th scope="col" style="color: #00487f">Clôture</th>
-            <th scope="col" style="color: #00487f">Inscrits/places</th>
-            <th scope="col" style="color: #00487f">Etat</th>
-            <th scope="col" style="color: #00487f">Inscrit</th>
-            <th scope="col" style="color: #00487f">Organisateur</th>
-            <th scope="col" style="color: #00487f">Actions</th>
+        <tr align="center">
+            <th scope="col" style="color: #00487f;width: 100px;" valign="middle">Nom de la sortie</th>
+            <th scope="col" style="color: #00487f; width: 100px" valign="middle">Date de la sortie</th>
+            <th scope="col" style="color: #00487f;width: 98px" valign="middle">Clôture</th>
+            <th scope="col" style="color: #00487f;" valign="middle">Inscrits/places</th>
+            <th scope="col" style="color: #00487f;width: 96px" valign="middle" align="center" >Etat</th>
+            <th scope="col" style="color: #00487f" valign="middle">Inscrit</th>
+            <th scope="col" style="color: #00487f" valign="middle">Organisateur</th>
+            <th scope="col" style="color: #00487f; width: 245px" valign="middle">Actions</th>
         </tr>
         </thead>
         <tbody>
         {% for sortie in sorties %}
             <tr>
-                <td>{{ sortie.nom }}</td>
-                <td>{{ sortie.dateHeureDebut|date('Y/m/d h:m') }}</td>
-                <td>{{ sortie.dateLimiteInscription|date('Y/m/d h:m') }}</td>
-                <td align="center">{{ sortie.participant|length }} / {{ sortie.nbInscriptionsMax }}</td>
+                <td style="width: 100px">{{ sortie.nom }}</td>
+                <td style="width: 20px">{{ sortie.dateHeureDebut|date('Y/m/d H:i') }}</td>
+                <td style="width: 20px" >{{ sortie.dateLimiteInscription|date('Y/m/d H:i') }}</td>
+                <td align="center" style="width: 125px">{{ sortie.participant|length }} / {{ sortie.nbInscriptionsMax }}</td>
                 <td>{{ sortie.etat }}</td>
-                <td align="center">
+                <td align="center" style="width: 64px">
 
 
                     {% set jeSuisInscrit = false %}
@@ -43,7 +44,7 @@
                         ❌
                     {% endif %}
                 </td>
-                <td>
+                <td align="center" style="width: 115px" >
                     <a href="{{ path('user_profile', { 'id': sortie.organisateur.id}) }}">{{ sortie.organisateur.username }}</a>
                 </td>
                 <td>
@@ -80,11 +81,16 @@
         {% endfor %}
         </tbody>
     </table>
+    </div>
+<body>
+    <div class="flex2"><a class="btn btn-mi" style="background-color: #00487f; color: white; margin-left: 160px;" href="{{ path('outing_new') }}">Créer une sortie</a>
+        <h6 align="right" style="margin-left: 650px; margin-bottom: 20px">Personne inscrite : ✔</h6></div>
+    <h6  align="right" style="margin-right: 170px">Personne non inscrite : ❌</h6>
 
-    <div class="flex2"><a class="btn btn-mi" style="background-color: #00487f; color: white; margin-left: 90px;" href="{{ path('outing_new') }}">Créer une sortie</a>
-        <h6 align="right" style="margin-left: 795px; margin-bottom: 20px">Personne inscrite : ✔</h6></div>
-    <h6  align="right" style="margin-right: 100px">Personne non inscrite : ❌</h6>
-
+    </body>
+    <footer>
+        <img  id="footer"  src="/images/sortir.png" style=" margin-left: 80px; width: 1100px; margin-bottom: auto;" alt="">
+    </footer>
 
 {% endblock %}
 
