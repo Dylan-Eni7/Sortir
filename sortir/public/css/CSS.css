@@ -3,8 +3,46 @@
     z-index:3;
 }
 
+.warning:hover{
+    color: red;
+}
+#scroll table{
+
+    height: auto;
+    display: block;
+}
+#scroll thead{
+    display: block;
+    width: auto;
+    height: auto;
+}
+#scroll tbody{
+    width: auto;
+    height: 200px;
+    display: inline-block;
+
+    overflow: auto;
+}
+#scroll td, #scroll tr{
+    width: auto;
+
+}
+
+footer.src{
+
+
+    position: absolute;
+    bottom: 0;
+    width: 100%; !important;
+}
+
+
 .warning {
     color: red;
+}
+
+.publi:hover{
+    color:green;
 }
 
 .publi {
