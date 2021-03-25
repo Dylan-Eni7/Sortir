@@ -209,16 +209,14 @@ class SortieController extends AbstractController
         $lieuRepository = $entityManager->getRepository(Lieu::class);
         $villeRepository = $entityManager->getRepository(Ville::class);
 
-        //Je récupère les Sites/Lieux/Villes existant dans la BDD et les stockent dans des tableaux.
-        $sites = $siteRepository->findAll();
-        $lieux = $lieuRepository->findAll();
-        $villes = $villeRepository->findAll();
-
         //Je récupère le Site/Lieu/Ville de la sortie que je modifie.
         $site = $sortie->getSite();
         $lieu = $sortie->getLieu();
         $ville = $lieu->getVille();
 
+        //Je récupère les Sites/Lieux/Villes existant dans la BDD et les stockent dans des tableaux.
+        $sites = $siteRepository->findAll();
+        $lieux = $lieuRepository->findBy(array('ville' => $ville->getId()));
 
         return $this->render('outing/modify.html.twig',[
             'sortie' => $sortie,
@@ -228,8 +226,7 @@ class SortieController extends AbstractController
             'ville' => $ville,
 
             'sites' => $sites,
-            'lieux' => $lieux,
-            'villes' => $villes
+            'lieux' => $lieux
         ]);
     }
 
