@@ -6,10 +6,11 @@
     <h2 align="center" style="color: #00487f; padding-top: 20px;">Voici nos sorties</h2><br>
 
 
-        <h3>Filtrer les sorties</h3>
 
-        <h6 align="right" style="margin-right: 180px">Date du jour : {{ date|date('d/m/Y') }}</h6>
-        <h6 align="right" style="margin-right: 180px">Participant : {{ participant.username }}</h6>
+
+        <h4 align="right" style="margin-right: 180px">Date du jour : {{ date|date('d/m/Y') }}</h4>
+        <h4 align="right" style="margin-right: 180px">Participant : {{ participant.username }}</h4>
+    <h5 style="margin-left: 20px">Filtrer les sorties</h5>
     <div style="width: 300px; margin-left: 20px ">
         <table>
        {{ form_start(FilterFormView) }}
@@ -47,7 +48,7 @@
         </tr>
 
                     </table>
-        {{ form_row(FilterFormView.submit) }}
+        {{ form_row(FilterFormView.Rechercher) }}
 
         {{ form_end(FilterFormView) }}
 

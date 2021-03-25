@@ -58,7 +58,7 @@ class FilterType extends AbstractType
                 'mapped'        => false,
                 'disabled'=>true,
             ])
-            ->add('submit', SubmitType::class, [
+            ->add('Rechercher', SubmitType::class, [
                 'attr' => ['style' => 'background-color : #00487f; border-color : #00487f; color : white;']
             ]);
     }
