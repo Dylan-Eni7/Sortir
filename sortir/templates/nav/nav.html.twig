@@ -12,7 +12,7 @@
 </head>
 
 <body>
-<nav class="navbar navbar-expand-sm "  style="background-color: #00487f">
+<nav class="navbar navbar-expand-sm " id="sticky" style="background-color: #00487f">
 
     <a class="navbar-brand" style="color:white;" href="{{ path('app_login') }}">
         <img src="/images/Eni.png" width="45" height="45" class="d-inline-block fixed-align-top" alt="">
@@ -51,7 +51,18 @@
 
     </ul>
 
-
 </nav>
+<div id="sticky2">
+    {% for label, messages in app.flashes %}
+        {% for message in messages %}
+            <div class="alert-{{ label }}">{{ message }}</div>
+        {% endfor %}
+    {% endfor %}
+</div>
+
+
 </body>
+<footer>
+
+</footer>
 </html>

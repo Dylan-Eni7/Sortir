@@ -1,9 +1,13 @@
 .navbar-nav {
     margin-left: auto;
 }
-.navbar {
+#sticky {
     position: sticky;
     top: 0px;
+}
+#sticky2 {
+    position: sticky;
+    top: 71px;
 }
 
 .navbar-toggle {
