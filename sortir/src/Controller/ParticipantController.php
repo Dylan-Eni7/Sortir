@@ -37,7 +37,7 @@ class ParticipantController extends AbstractController
 
             $this->addFlash('success', 'Inscription accepté !');
         } else {
-            $this->addFlash('error', "Il n'y a plus de place pour cette sortie !");
+            $this->addFlash('warning', "Il n'y a plus de place pour cette sortie !");
         }
         return $this->redirectToRoute("outing_list");
     }
