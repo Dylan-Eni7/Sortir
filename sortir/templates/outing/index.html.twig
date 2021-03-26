@@ -124,7 +124,8 @@
                         {% if sortie.etat != "En création" %}
                             <a href="{{ path('outing_detail', {id: sortie.id}) }}">Afficher</a>
                         {% endif %}
-                        {% if is_granted('ROLE_ADMIN') and sortie.etat != "En création" %}
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <a href="{{ path('outing_detail', {id: sortie.id}) }}">Afficher</a>
                             - <a href="{{ path('outing_cancel', {id: sortie.id}) }}" class="warning">Annuler</a>
                         {% endif %}
                     {% endif %}
