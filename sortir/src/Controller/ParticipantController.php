@@ -54,9 +54,12 @@ class ParticipantController extends AbstractController
         //Je récupère l'utilisateur.
         $participant=$this->getUser();
 
+
         //Je retire l'utilisateur de la sortie.
         $participant->removeSorty($sortie);
         $entityManager->flush();
+
+        $this->addFlash('success', 'Vous êtes bien désinscrit de la sortie !');
         return $this->redirectToRoute("outing_list");
     }
 }
