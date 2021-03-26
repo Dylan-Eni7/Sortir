@@ -33,7 +33,7 @@ class SortieType extends AbstractType
             ->add('nbInscriptionsMax',IntegerType::class,[
                 'label' => "nombre de places : "
             ])
-            ->add('duree',[
+            ->add('duree',IntegerType::class,[
                 'label' => "Durée en minutes : "
             ])
             ->add('infosSortie')
